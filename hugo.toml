@@ -21,7 +21,7 @@ googleAnalytics = ""
 copyright = ""
 
 # whether to use robots.txt
-enableRobotsTXT = false
+enableRobotsTXT = true
 # whether to use git commit log
 enableGitInfo = false
 # whether to use emoji code
@@ -134,7 +134,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       # LoveIt CHANGED | 0.2.7 title shown in home page (HTML format is supported)
       title = ""
       # subtitle shown in home page (HTML format is supported)
-      subtitle = "Blending Robotics and AI"
+      subtitle = "Blending Robotics and AI 😊"
       # whether to use typeit animation for subtitle
       typeit = true
       # whether to show social links
@@ -210,7 +210,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   #   # Windows v8-10 tile color
   #   tileColor = "#da532c"
 
-  # LoveIt NEW | 0.2.0 Search config
+  # LoveIt NEW | 0.2.0 Search bar config
   [params.search]
     enable = true
     # type of search engine ["lunr", "algolia"]
@@ -302,31 +302,31 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     #   fullscreen = true
 
     # LoveIt CHANGED | 0.2.0 social share links in post page
-    [params.page.share]
-      enable = false
-      Twitter = false
-      Facebook = false
-      Linkedin = false
-      Whatsapp = false
-      Pinterest = false
-      Tumblr = false
-      HackerNews = false
-      Reddit = false
-      VK = false
-      Buffer = false
-      Xing = false
-      Line = false
-      Instapaper = false
-      Pocket = false
-      Flipboard = false
-      Weibo = false
-      Blogger = false
-      Baidu = false
-      Odnoklassniki = false
-      Evernote = false
-      Skype = false
-      Trello = false
-      Mix = false
+    # [params.page.share]
+    #   enable = false
+    #   Twitter = false
+    #   Facebook = false
+    #   Linkedin = false
+    #   Whatsapp = false
+    #   Pinterest = false
+    #   Tumblr = false
+    #   HackerNews = false
+    #   Reddit = false
+    #   VK = false
+    #   Buffer = false
+    #   Xing = false
+    #   Line = false
+    #   Instapaper = false
+    #   Pocket = false
+    #   Flipboard = false
+    #   Weibo = false
+    #   Blogger = false
+    #   Baidu = false
+    #   Odnoklassniki = false
+    #   Evernote = false
+    #   Skype = false
+    #   Trello = false
+    #   Mix = false
 
     
     # # LoveIt CHANGED | 0.2.0 Comment config
@@ -466,3 +466,11 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   # LoveIt NEW | 0.2.0 Analytics config
   [params.analytics]
     enable = true
+
+  # Sitemap config
+
+[sitemap]
+  changefreq = "weekly"
+  filename = "sitemap.xml"
+  priority = 0.5
+  
