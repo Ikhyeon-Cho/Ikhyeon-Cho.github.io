@@ -1,0 +1,8 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Asd - Category - Ikhyeon&#39;s Dev Blog</title>
+        <link>http://localhost:1313/categories/asd/</link>
+        <description>Asd - Category - Ikhyeon&#39;s Dev Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tre0430@korea.ac.kr (Ikhyeon Cho)</managingEditor>
+            <webMaster>tre0430@korea.ac.kr (Ikhyeon Cho)</webMaster><atom:link href="http://localhost:1313/categories/asd/" rel="self" type="application/rss+xml" /></channel>
+</rss>
