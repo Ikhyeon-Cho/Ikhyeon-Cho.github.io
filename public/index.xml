@@ -1,17 +1,17 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Ikhyeon&#39;s Blog</title>
-        <link>http://localhost:1313/</link>
+        <link>http://example.org/</link>
         <description>About Robotic 3D perception and navigation, blended with machine learning</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tre0430@korea.ac.kr (Ikhyeon Cho)</managingEditor>
             <webMaster>tre0430@korea.ac.kr (Ikhyeon Cho)</webMaster><lastBuildDate>Thu, 22 Feb 2024 18:50:42 &#43;0900</lastBuildDate>
-            <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+            <atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>[KRoC 2024] Plenary Talk: 오준호 교수 강연 정리</title>
-    <link>http://localhost:1313/posts/kroc_2024_plenary/</link>
+    <link>http://example.org/posts/kroc_2024_plenary/</link>
     <pubDate>Thu, 22 Feb 2024 18:50:42 &#43;0900</pubDate>
     <author>Ikhyeon Cho</author>
-    <guid>http://localhost:1313/posts/kroc_2024_plenary/</guid>
+    <guid>http://example.org/posts/kroc_2024_plenary/</guid>
     <description><![CDATA[<p>2024년 2월 KRoC 첫 번째 기조강연이었던 오준호 교수의 연설을 듣고 그 내용을 정리하였다.</p>]]></description>
 </item>
 </channel>

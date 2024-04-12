@@ -1,23 +1,23 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Tags - Tag - Ikhyeon&#39;s Blog</title>
-        <link>http://localhost:1313/tags/</link>
+        <link>http://example.org/tags/</link>
         <description>Tags - Tag - Ikhyeon&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tre0430@korea.ac.kr (Ikhyeon Cho)</managingEditor>
-            <webMaster>tre0430@korea.ac.kr (Ikhyeon Cho)</webMaster><lastBuildDate>Thu, 22 Feb 2024 18:50:42 &#43;0900</lastBuildDate><atom:link href="http://localhost:1313/tags/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>tre0430@korea.ac.kr (Ikhyeon Cho)</webMaster><lastBuildDate>Thu, 22 Feb 2024 18:50:42 &#43;0900</lastBuildDate><atom:link href="http://example.org/tags/" rel="self" type="application/rss+xml" /><item>
     <title>Conference</title>
-    <link>http://localhost:1313/tags/conference/</link>
+    <link>http://example.org/tags/conference/</link>
     <pubDate>Thu, 22 Feb 2024 18:50:42 &#43;0900</pubDate>
     <author>Ikhyeon Cho</author>
-    <guid>http://localhost:1313/tags/conference/</guid>
+    <guid>http://example.org/tags/conference/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Robotics</title>
-    <link>http://localhost:1313/tags/robotics/</link>
+    <link>http://example.org/tags/robotics/</link>
     <pubDate>Thu, 22 Feb 2024 18:50:42 &#43;0900</pubDate>
     <author>Ikhyeon Cho</author>
-    <guid>http://localhost:1313/tags/robotics/</guid>
+    <guid>http://example.org/tags/robotics/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>

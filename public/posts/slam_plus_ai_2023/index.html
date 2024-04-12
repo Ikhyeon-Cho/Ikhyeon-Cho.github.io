@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>[ModuCon 2023] SLAM &#43; AI 강연 정리 - Ikhyeon&#39;s Blog</title><meta name="Description" content="About Robotic 3D perception and navigation, blended with machine learning"><meta property="og:title" content="[ModuCon 2023] SLAM &#43; AI 강연 정리" />
+<meta property="og:description" content="2023년 2월 유튜브 모두의연구소 채널에서 공간지능(Spatial AI)을 주제로 한 강연을 듣고 그 내용을 정리하였다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/posts/slam_plus_ai_2023/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-06-12T11:02:27+09:00" />
+<meta property="article:modified_time" content="2023-06-12T11:02:27+09:00" /><meta property="og:site_name" content="Ikhyeon&#39;s Blog" />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="[ModuCon 2023] SLAM &#43; AI 강연 정리"/>
+<meta name="twitter:description" content="2023년 2월 유튜브 모두의연구소 채널에서 공간지능(Spatial AI)을 주제로 한 강연을 듣고 그 내용을 정리하였다."/>
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/posts/slam_plus_ai_2023/" /><link rel="next" href="http://localhost:1313/posts/kroc_2024_plenary/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "[ModuCon 2023] SLAM + AI 강연 정리",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/posts\/slam_plus_ai_2023\/"
+        },"genre": "posts","wordcount":  15424 ,
+        "url": "http:\/\/localhost:1313\/posts\/slam_plus_ai_2023\/","datePublished": "2023-06-12T11:02:27+09:00","dateModified": "2023-06-12T11:02:27+09:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Ikhyeon Cho"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('light' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'light' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Ikhyeon&#39;s Blog">Ikhyeon Cho</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> Home </a><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Ikhyeon&#39;s Blog">Ikhyeon Cho</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/" title="">Home</a><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[ModuCon 2023] SLAM + AI 강연 정리</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Ikhyeon Cho</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-06-12">2023-06-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;15424 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;31 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#slam-이란">SLAM 이란?</a>
+      <ul>
+        <li><a href="#intro">Intro</a></li>
+        <li><a href="#localization">Localization</a></li>
+        <li><a href="#mapping">Mapping</a></li>
+        <li><a href="#simultaneous">Simultaneous</a></li>
+        <li><a href="#slam">SLAM</a></li>
+        <li><a href="#factor-graph-그리고-front-end--back-end">Factor graph, 그리고 Front-end / Back-end</a></li>
+      </ul>
+    </li>
+    <li><a href="#history-of-slam">History of SLAM</a>
+      <ul>
+        <li><a href="#ekf-slam-1990s">EKF SLAM (1990s)</a></li>
+        <li><a href="#fast-slam-2002">Fast SLAM (2002)</a></li>
+        <li><a href="#2d-lidar-slam-2010s">2D LiDAR SLAM (2010s)</a></li>
+        <li><a href="#monoslam-2003">MonoSLAM (2003)</a></li>
+        <li><a href="#ptam-2007">PTAM (2007)</a></li>
+        <li><a href="#feature-based-vslam-2010s">Feature-based VSLAM (2010s)</a></li>
+        <li><a href="#direct-slam---dtam-2010">Direct SLAM - DTAM (2010)</a></li>
+        <li><a href="#lsd-slam-2014">LSD SLAM (2014)</a></li>
+        <li><a href="#direct-vslam--mid-2010s">Direct VSLAM  (mid 2010s)</a></li>
+        <li><a href="#kinectfusion-2012">KinectFusion (2012)</a></li>
+        <li><a href="#rgb-d-slam-2010s">RGB-D SLAM (2010s)</a></li>
+        <li><a href="#loam-2014">LOAM (2014)</a></li>
+        <li><a href="#3d-lidar-slam-2019-">3D LiDAR SLAM (2019 ~)</a></li>
+      </ul>
+    </li>
+    <li><a href="#deep-learning--slam">Deep Learning + SLAM</a>
+      <ul>
+        <li><a href="#superpoint--superglue">SuperPoint + SuperGlue</a></li>
+        <li><a href="#netvlad">NetVLAD</a></li>
+        <li><a href="#depth-estimation--completion">Depth Estimation / Completion</a></li>
+        <li><a href="#object-detection--semantic-segmentation">Object Detection / Semantic Segmentation</a></li>
+        <li><a href="#기존의-slam-pipeline과-dl-모듈">기존의 SLAM pipeline과 DL 모듈</a></li>
+        <li><a href="#dl-모듈-활용의-문제점">DL 모듈 활용의 문제점</a></li>
+        <li><a href="#deep-learning-관련-다양한-시도들">Deep Learning 관련 다양한 시도들</a></li>
+        <li><a href="#왜-slam에는-딥러닝을-적용해도-혁신이-생기지-않는가">왜 SLAM에는 딥러닝을 적용해도 혁신이 생기지 않는가?</a></li>
+      </ul>
+    </li>
+    <li><a href="#spatial-ai">Spatial AI</a>
+      <ul>
+        <li><a href="#semantic-understanding-level-3">Semantic understanding (Level 3)</a></li>
+        <li><a href="#multi-modal-fusion">Multi-modal fusion</a></li>
+        <li><a href="#deep-factor-optimization">Deep Factor Optimization</a></li>
+      </ul>
+    </li>
+    <li><a href="#로드맵-강의를-마치며">로드맵: 강의를 마치며&hellip;</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>2023년 2월 유튜브 모두의연구소 채널에서 공간지능(Spatial AI)을 주제로 한 강연을 듣고 그 내용을 정리하였다.</p>
+<hr>
+<h2 id="slam-이란">SLAM 이란?</h2>
+<h3 id="intro">Intro</h3>
+<p>Simultaneous Localization and Mapping: 동시적 위치 추정 및 지도 작성</p>
+<ul>
+<li>
+<p>되게 멋있는 이름이다. 원래는 슬램이라는 이름을 가져 더 인기를 끌기 전에는 다른 이름도 있었다는데, 그때까지는 지금보다도 더 인기가 없었다고 한다. 이름도 재미가 없으니까. 근데 갑자기 슬램 막 이러니까 사람들이 막 뭐야 뭐야 이러면서 그때부터 좀 뜨기 시작했다고 한다.</p>
+</li>
+<li>
+<p>개인적으로 Simultaneous 하다는 게 가장 중요한 것 같다. 이 simultaneous라는 단어가 SLAM 기술을 한 번에 다 표현하는 방법이라고 생각한다. 반대로 얘기하면, 왜 simultaneous한 지 이해를 못했다면 슬램을 이해하지 못한 거나 마찬가지라고 생각한다.</p>
+</li>
+</ul>
+<h3 id="localization">Localization</h3>
+<p>위치 추정이라는 것은, 어떤 공간이 있을 때, 예를 들어서 여기 오피스가 있을 때, 내가 이 공간에 대한 지도를 가지고 있다고 가정하면, 지도를 가지고 있는 상황에서 내가 여기서 눈을 감고 있다가 눈을 딱 떴다고 생각해보자.</p>
+<ul>
+<li>
+<p>그러면 저기 벽이 있고 여기 여기 쪽에 창문이 있고 저쪽에 커피 머신이 있고 라는 게 보인다. 이 때, 내가 지도를 가지고 있으면, 아. 커피 머신이 여기쯤 있구나. 지도의 창문이 여기 있구나. 여기에 벽이 있구나. 그러면 나는 이쯤 있겠다. 를 알 수 있다.</p>
+</li>
+<li>
+<p>위치 추정을 하는 방법은 사실 굉장히 많다. 지도는 다양한 형태의 지도가 있을 수 있고, 그 지도를 바탕으로 위치 추정을 하는 방법도 굉장히 다양하다. 카메라 기반으로도 할 수 있고 라이더 기반으로도 할 수 있다.</p>
+<ol>
+<li>가장 쉬운 방법은 GPS</li>
+</ol>
+<ul>
+<li>하늘에 있는 위성들이 삼각 측량을 해서 지구 위에 내가 어디 있는지를 알려줌</li>
+</ul>
+<ol start="2">
+<li>라이더 기반 Localization</li>
+<li>카메라 기반 Visual localization</li>
+</ol>
+</li>
+</ul>
+<h3 id="mapping">Mapping</h3>
+<p>지도 작성 기술은 반대이다. Localization은 지도가 있을 때 나의 위치를 찾기인데, mapping 기술은 거꾸로 내 위치를 알고 있을 때 지도를 만들기이다. 근데 단순히 내가 그냥 여기 한 시점에 있으면서 주변을 딱 둘러봤을 때 물론 지도를 만들 수는 있겠지만, 내가 안 보이는 부분에 대해서는 어떻게 생겼는지 모르니까 지도를 못 만든다. 그럼 내가 이렇게 좀 이동을 해서 보면, 이제 보인다.</p>
+<ul>
+<li>근데 이렇게 이동해서 지도를 정확하게 만들려면, 내가 정확히 이전 위치에서 여기까지 얼마나 움직였는지를 알아야 된다. 그게 아니라면 제가 저기서 본 거랑 여기서 본 거랑 아무런 관계도 없기 때문에 이걸로 뭐 무슨 지도를 어떻게 만들라는 거지? 이렇게 될 수가 있다.</li>
+<li>그냥 비슷하게 생긴 공간이 이어붙어져 있는 거 아닌가 할 수도 있는데, 그게 아니라 실제로 하나의 공간인데 다른 시점에서 본 겹치는 영역이 있고 안 겹치는 영역을 덧대어서 그리면 지도가 된다. 이렇게 볼 수 있다.</li>
+</ul>
+<p><strong>지도를 그리는 방식이 사실 또 굉장히 많다</strong></p>
+<ul>
+<li>왼쪽 위에 보이는 건 테슬라에서 최근에 발표한 occupancy network.</li>
+<li>오른쪽 위에 보이는 것처럼 메쉬 형태로도 할 수 있음. 삼각형으로 덧대어서 붙여가지고 벽이 있는 곳과 없는 곳을 구분하기</li>
+<li>왼쪽 밑에는 포인트 클라우드</li>
+<li>오른쪽 밑이 조금 생소할 수도 있는데 Semantic map. 최근 많이 유명해지고 있는 지도 표현 방식.</li>
+</ul>
+<p><strong>Semantic Map</strong></p>
+<ul>
+<li>슬램을 하면서 이 도시를 돌아다니면서 바닥에 있는 차선이라든지 로드 마커 같은 것들을 매핑을 해놓은 것</li>
+<li>포인트 클라우드나 이런 것들은 정보 하나하나를 하나하나씩은 작지만 다 모으고 나면 굉장히 무겁다.</li>
+<li>그런 무거운 것들 싹 빼고, 신호등의 위치 이런 것들만 저장을 해놓으면 훨씬 더 가볍게 쓸 수 있기 때문에 저런 것들을 이제 모아서 의미가 있는 것들만 모아놓는다.</li>
+</ul>
+<h3 id="simultaneous">Simultaneous</h3>
+<ul>
+<li>Simultaneous는 이제 위치 추정과 지도 작성을 동시에 한다는 것.</li>
+<li>위치 추정을 한다는 거는 저희가 어떤 공간 안에 있을 때 지도를 보고 내 위치를 찾는 건데 지도가 있어야 된다.지도가 없으면 못 찾는다. 무인도 위에다 딱 떨어뜨려놓고 나서 눈을 딱 뜨면, 너 어디 있어? 그러면 글쎄&hellip; 이 얘기가 나올 수밖에 없다.</li>
+<li>지도가 부정확할 수도 있다. 나를 에버랜드에 떨궈놓고 나서 롯데월드 지도를 보고 있으면, 보고 나서 뭐야 막 이렇게 된다. 분명한 것은, 지도가 부정확하면 자기 위치 찾는 것도 어려워진다.</li>
+<li>그래서 정확한 지도를 필요로 한다.</li>
+<li>그런데, 반대로 지도 작성을 한다는 것은 정확한 위치를 알아야 한다. 지금 보면 여기 뒤에 오피스에 이렇게 하나 좀 튀어나온 벽이 있고 저기도 튀어나온 벽이 있는데, 라이다를 가지고 여기서 쏘고 저기서 쐈으면 라이더 입장에서는 저 튀어나온 벽과 이 튀어나온 벽을 구분할 수가 없다. 둘 다 똑같이 튀어나온 벽이고 비슷하게 생겼기 때문에. 이거를 구분할 수 있는 방법은 어디 어디서 찍었는지 위치를 알려주는 방법밖에 없다.</li>
+<li>그렇기 때문에 정확한 지도작성은 정확한 위치를 필요로 한다. 근데 이게 되게 어렵다.</li>
+</ul>
+<h3 id="slam">SLAM</h3>
+<ul>
+<li>위치 추정은 지도가 있어야 되고, 지도 작성은 위치를 알아야 되는데 슬램은 그런 거 다 필요 없다. 그냥 아무것도 모르는 상태에서 아무런 위치 정보 없이, 지도 정보 없이, 바로 위치 추정과 지도 작성을 동시에 푸는 방법.</li>
+<li>조금 더 확률적으로 얘기하면 아무런 사전 정보 (prior 정보) 없이 시작할 수 있는 시스템이라고 얘기를 많이 한다.</li>
+<li>아무것도 보고 있지 않은 상태에서 보이는 것들을 계속 이렇게 붙여나가는데, 그럼 붙여나갈 때는 어떻게 붙여나가느냐? 자기의 위치 정보를 새롭게 추론해 낸 정보를 가지고 계속 덧대어서 붙여나가는 형태로 볼 수 있다.</li>
+<li>근데 그러면 이게 어떻게 되는 거냐. 그렇게 쉬운 거였으면 로컬라이제이션 문제도 아니면 매핑 문제도 그냥 다 진작에 해결됐을 텐데 이게 왜 어렵냐.</li>
+<li>슬램에서 가장 중요한 부분은 이거다. 먼저, motion 모델이 있고 observation 모델이 있다.</li>
+<li>motion 모델은 로봇의 이동치를 표현하는 수식. 즉, 앞으로 한 걸음 갔다 그러면 한 걸음 같다라는 걸 표현을 해주는 수식
+<ul>
+<li>근데, 실제로는 노이즈가 있다. 모든 로봇에서는 센서들이 달려 있고 센서들은 모두 노이즈를 가지고 있다. 1m 라고 생각했지만 실제로는 1m 1cm를 걸었다. 1m 1m인 줄 알았지만 99cm를 걸었다.</li>
+<li>계속 걷다 보면 이 오차가 점점 쌓인다.</li>
+</ul>
+</li>
+<li>반대로 observation 모델은 주변 환경에 대한 관측치를 얘기를 하는 것. 앞에 계신 분하고 저 사이에 거리 관계를 표현하는 방법.
+<ul>
+<li>만약 모션 모델을 그대로 믿고 관측치들을 다 그냥 붙여보면, 그러니까 이동하면서 센서에서 나타난 값들을 가지고 그대로 이어붙여보면? 안 맞는다.</li>
+<li>안 맞을 수밖에 없는 게, 모션 모델만 그대로 믿고 갔었을 때는 모션 모델의 쌓인 오차 때문에 observation 모델도 말이 안 되게 된다.</li>
+</ul>
+</li>
+<li>그러면 이거를 어떻게 해야지 되냐?</li>
+<li>Motion 모델과 Observation 모델을 둘 다 엮었을 때, 오차의 합이 최소화 되는 부분이 어떤 것이냐라고 생각해볼 수 있다.</li>
+<li>그때부터 motion 모델에 대한 부분도 조금씩 수정을 하고 observation 모델에 대한 부분도 조금씩 수정을 하는 것이다. 그래서 실제로 모션이 여기는 한 120도로 꺾었다 한 90도 꺾었다 이렇게 생각했지만 120도가 아니라 넌 여기서 90도 꺾었어 여기도 90도 여기도 90도 꺾었어 이런 식으로 바꿔주는 것.</li>
+<li>그렇게 되면 이 로봇이 이 자동차가 어떤 위치를 이렇게 지나갔었음을 알 수가 있고 그리고 그 위치에서 어떤 랜드마크를 어떻게 바라봤는지에 대해서 정확하게 알 수가 있다.</li>
+</ul>
+<h3 id="factor-graph-그리고-front-end--back-end">Factor graph, 그리고 Front-end / Back-end</h3>
+<ul>
+<li>슬램 쪽에서는 이런 문제를 이제 Factor graph라는 형태로 표현을 한다.</li>
+<li>로봇이 움직이면서 이렇게 새로운 그래프의 노드와 엣지를 만들면서 갈 텐데, 그걸 저희가 graph construction 단계, 이걸 다른 말로 Front-end라고 부른다.</li>
+<li>반대로 그래프가 다 만들어지고 나서, 방금 전처럼 이렇게 에러가 이렇게 많이 쌓여 있는 거를 최적화를 통해서 이렇게 풀어주는 작업은 graph-optimization, 다른 말로는 Back-end라고 얘기를 한다.</li>
+<li>웹에서 얘기하는 프론트엔드 백엔드랑은 조금 다르다.</li>
+<li>그래서 흔히, 슬램을 확률적인 그래프 최적화 문제다라고 이렇게 얘기를 한다.</li>
+</ul>
+<hr>
+<h2 id="history-of-slam">History of SLAM</h2>
+<h3 id="ekf-slam-1990s">EKF SLAM (1990s)</h3>
+<p><strong>Backend: EKF</strong></p>
+<p><strong>Complexity: O(n^2)</strong></p>
+<ul>
+<li>우선은 가장 먼저 90년대에 de-facto, 그러니까 모두가 쓰는 방법으로 쓰였던 게 EKF SLAM.</li>
+<li>Extended Kalman Filter를 사용한다는 것.</li>
+<li>90년대는 사실 EKF로 뭘 할 수 있을까 해서, 진짜 모든 보이는 거 다 EKF에 넣어보는 시대였다.</li>
+<li>이제 많이 EKF 해보신 분들은 아시겠지만 안에 공분산 행렬, 즉 Covariance matrix 라는 걸 관리를 하게 된다.</li>
+<li>여기서 이제 보이는 것처럼 로봇이 이동을 하면서 주변 랜드마크들을 볼 때마다 관측을 하게 되면서 EKF 안에 공분산 매트릭스를 관리를 하면서 지금 이렇게 uncertainty를 이렇게 표현을 하게 된다.</li>
+<li>다시 보면 볼수록 uncertainty가 작아지기 때문에 점점 이렇게 타원이 작아지는 걸 볼 수가 있다.</li>
+<li>그러면 슬램 EKF로 풀면 되겠다라고 했는데, 그렇게 많이 슬램이 90년대는 뜨지 않았다.</li>
+<li>왜냐하면 EKF의 covariance matrix는, 관측치가 많아지면 많아질수록 매트릭스에 로우가 하나씩 많아진다.로우만 많아지는 게 아니라 똑같이 컬럼도 많아진다.</li>
+<li>그러면 하나씩 랜드마크가 추가되면 추가될수록 O(n^2) 으로 올라가기 때문에 금방 메모리가 꽉 차버리게 된다.</li>
+<li>이 방만 한 바퀴 돌아도 이미 끝난다. 컴퓨터 막 죽으려고 할 거다.</li>
+</ul>
+<h3 id="fast-slam-2002">Fast SLAM (2002)</h3>
+<p><strong>Backend: PF(Particle Filter) + EKF for each landmark</strong></p>
+<p><strong>Complexity: O(n)</strong></p>
+<ul>
+<li>다음으로 개선된 것이 Fast SLAM.</li>
+<li>Sebastian Thrun이 만들었다. 쓰런 아저씨는 지금의 유다시티를 만든 사람이기도 하고, 구글 웨이모를 창립한 사람이기도 하다. 웨이모 창립하고, 갑자기 나는 동영상 강의를 만들겠다고 나갔다. 내 롤 모델이다.</li>
+<li>Fast SLAM 같은 경우, O(n^2)이었던 친구가 O(n)으로 줄어들었다.</li>
+<li>이것도 내용 깊게 들어가면 좀 굉장히 어렵기는 한데, 파티클 필터 방식으로 백엔드를 바꿨다.</li>
+<li>랜드마크 하나하나씩을 트래킹하는 데에다가 ekf를 넣었는데, 그럼 이것도 ekf 쓰는데 이것도 O(n^2) 아니냐라고 할 수 있지만, 랜드마크 하나에 대한 것만 EKF를 하기 때문에 그렇게 observation 수가 많아지지가 않는다.</li>
+<li>그래서 굉장히 효율적으로 이걸 돌릴 수 있게 됐다고 한다.</li>
+</ul>
+<h3 id="2d-lidar-slam-2010s">2D LiDAR SLAM (2010s)</h3>
+<p><strong>1. Gmapping (2005)</strong></p>
+<p><strong>2. HectorSLAM (2011)</strong></p>
+<p><strong>3. Cartographer (2015)</strong></p>
+<ul>
+<li>2D 라이다 슬램은 여기까지 오면 거의 웬만한 현업에서 쓰고 있는 거랑 거의 똑같은 레벨로 올라왔다고 보면 된다.</li>
+<li>2005년에 g-mapping이라는 알고리즘이 나왔고, 2011년에 헥터 슬램이라는 애가 나왔고. 사실 영상 보면 다 그게 그것처럼 보인다.</li>
+<li>근데 뭐가 다르냐라고 하면 성능이 다르다. Cartographer가 제일 좋다. 구글에서 만든 거고, 2D 라이다도 쓸 수 있고 3D 라이다도 쓸 수 있다.</li>
+<li>어떻게 둘 다 되냐라고 하면, 3D 라이다에서 나오는 모든 정보들을 2D로 압축을 해가지고 라이다 오도매트리를 한다.</li>
+<li>당연히 Loop closure도 된다.</li>
+<li>아까 EKF SLAM 같은 경우는 여기 한 바퀴 돌면 컴퓨터 터질 거라고 말씀을 드렸는데, 얘 같은 경우는 공장 한 바퀴를 다 돌더라도 거뜬히 견딜 수 있는 매우 효율적인 알고리즘이다.</li>
+</ul>
+<h3 id="monoslam-2003">MonoSLAM (2003)</h3>
+<ul>
+<li>
+<p>카메라 기반으로 슬램을 하는 첫 번째 시도가 나타난 분기점.</p>
+</li>
+<li>
+<p>이거는 단순히 EKF SLAM을 카메라로 포팅했다 정도로 볼 수 있다.</p>
+</li>
+<li>
+<p>근데 이제 비주얼 슬램을 처음으로 하면서 이런 고민이 생기게 된다.</p>
+<ul>
+<li>라이더 슬램 같은 경우는 처음부터 랜드마크의 포인트가 3D 공간 또는 2D 공간에 있는 걸로 나온다.</li>
+<li>근데 카메라 같은 경우는 3D 공간에 있는 정보가 2D의 이미지로 압축돼서 나오기 때문에, 거리 값 (depth)라고 하는 하나의 차원의 정보가 소실이 되게 된다.</li>
+<li>이거를 복원하기 위해서 어떤 방법을 거쳐야 되는가라는 부분은 영상 처리 및 3D geometry 관련으로 연구가 굉장히 많이 진행이 되었다.</li>
+</ul>
+</li>
+<li>
+<p>그래서 모노 슬램이라는 것 그러니까 이제 카메라로도 이게 가능하다라는 걸 보였다.</p>
+</li>
+<li>
+<p>기본적으로 EKF SLAM하고 굉장히 비슷하다. 때문에 얘도 공간을 그렇게 크게 못 쓴다. 여기는 주방 하나의 벽면 정도만 할 수 있다라고 하는데, 최근에 사용하는 슬램들하고 비교했었을 때, 사용하는 랜드마크 포인트가 현저히 적다. 얘는 30개 이상 포인트를 쓴다 그러면 컴퓨터가 녹아내린다.</p>
+</li>
+<li>
+<p>근데 최근에 쓰이는 것들은 한 2만 개, 3만 개 잡아도 괜찮다.</p>
+</li>
+</ul>
+<h3 id="ptam-2007">PTAM (2007)</h3>
+<ul>
+<li>
+<p>2007년에 굉장히 큰 breakthrough가 나타난다. 개인적인 의견이지만, 슬램 쪽에서 있었던 가장 큰 breakthrough라고 생각된다.</p>
+</li>
+<li>
+<p>근데 웃긴 것은, 연구자들이 만든 breakthrough가 아니다.</p>
+</li>
+<li>
+<p>2006년쯤, 처음으로 인텔 듀얼 코어가 나왔다. CPU 코어가 2개가 된 것.</p>
+</li>
+<li>
+<p>동시에 두 가지 일을 할 수 있게 된 건데, 슬램에서도 똑같이 했다.</p>
+<ul>
+<li>하나의 스레드에서 무거운 연산을 다 돌리기에는 너무나 오래 걸린다.</li>
+<li>그러면 빨리빨리 실시간으로 돌 수 있는 걸 하나 넣고</li>
+<li>조금 오래 걸리더라도 정확한 연산할 수 있는 거를 또 넣자</li>
+</ul>
+</li>
+<li>
+<p>따라서 Tracking thread와 Mapping thread를 분리했다.</p>
+</li>
+<li>
+<p>그러면 수많은 데이터들을 가지고 빨리 도는 연산들은 실시간으로 빨리 돌리고, 그다음에 좀 오래 걸려도 되는 것들, 한 200ms 500ms 걸려도 되는 것들은 뒤에서 돌린다는 방식으로 돌아가게 된다.</p>
+</li>
+<li>
+<p>이 논문이 굉장히 대단한 게, 가끔씩 학부생들이 졸업 논문으로 쓰는 슬램 논문과 코드들이 있는데, 그것들과 정확도를 비교해보면 아직도 얘네 것들이 더 높은 경우가 많이 있다. 무려 2007년, 2008년 기술인데 굉장하다.</p>
+</li>
+<li>
+<p>현업에서 앱을 만드는 회사들도 많이들 이 2007년 수준을 넘지 못해서 포기하는 곳들도 많다.</p>
+</li>
+</ul>
+<h3 id="feature-based-vslam-2010s">Feature-based VSLAM (2010s)</h3>
+<p><strong>1. ORB SLAM (2015)</strong></p>
+<p><strong>2. ORB SLAM 2 (2017)</strong></p>
+<p><strong>3. VINS Mono (2017)</strong></p>
+<p><strong>4. ORB SLAM 3 (2020)</strong></p>
+<ul>
+<li>보통 이제 커뮤니티에서 비주얼 슬램 공부하고 싶은데 뭐부터 보면 될까요 하면 orb slam 보세요 한다.</li>
+<li>읽지 마라. 그 첫 시작 논문으로 그거 읽지 마라. 코드도 보지 말아라. 그것부터 시작하면 너무 어렵고 별로여서 다 포기하게 된다. 정말 어렵다.</li>
+<li>첫 논문으로는, PTAM을 추천한다.</li>
+<li>이게 그래서 어느 정도가 됐냐라고 하면, 아까 모노슬램 같은 경우는 벽면 하나 그리고 PTAM 같은 경우는 조그마한 방 하나</li>
+<li>이제 이거 같은 경우는 운동장을 이렇게 삥 돌면서 운동장에서 자기네 시스템 이름이 VINS MONO인데, 그래서 VINS라고 적고 막 뺑 돈다. 그리고 그거를 이제 항공지도에다가 덧대어서 그리는데 매우 정확하게 나온다. 실제로 굉장히 정확하다.</li>
+<li>하지만 현업에서는 쓰기 어렵다. 다 라이센스 걸려 있고. 그리고 라이센스 피해 가신다고 해도 orb는 절대 쓰지 말아라. 성능 되게 안 좋다. 차라리 쓸 거면 VINS Mono</li>
+</ul>
+<h3 id="direct-slam---dtam-2010">Direct SLAM - DTAM (2010)</h3>
+<p><strong>PTAM의 쓰레드 분리를 이용</strong></p>
+<p><strong>Direct 최적화 방식</strong></p>
+<ul>
+<li>Direct 슬램은 Feature-based랑은 굉장히 다르다. 일단 지금 나오는 것만해도 굉장히 다름. 아까는 굉장히 점들이 많이 찍혀 있었는데 점이 찍혀 있는 게 아니라 거의 막 벽 하나가 실제로 만들어지는 듯한 느낌.</li>
+<li>이게 이게 어떤 점에서 다르냐라고 하면, 아까 봤었던 VINS Mono 같은 것들은 이미지에서 특징점들을 찾아낸 다음에 걔를 트래킹해서 걔가 딴 각도에서 봐도 제대로 된 위치에 있나를 보려고 하는 것.</li>
+<li>Direct는 그런 방법이 아니라, 그냥 이미지 전체를 다 보고, 이 이미지가 여기 있으면 내가 이거를 여기서 본다 그러면 색깔이 똑같나를 보는 것.</li>
+<li>Feature-baded SLAM에서는 포인트가 한 10개 있다. 근데 한 7개가 틀려버렸다. 그러면 3개만 옳은 거고. 근데 어떤 게 틀린지 모르는 상태. 그럼 이걸 가지고 어떻게 정확한 걸 알아낼 수 있을까? 못한다. 많이 어렵다. 엄청나게 많은 계산이 추가로 들어가야 되고, 그거 한다고 해도 잘 나올지 보장을 할 수 없다.</li>
+<li>다이렉트 같은 경우는 이미지 하나가 여기 있고 이미지 하나가 여기 있는데 640x480 이미지만 해도 벌써 10만 개가 넘으니까 굉장히 정확하다.</li>
+<li>그렇기 때문에 여기 지금 영상에서 나오는 것처럼 아까 막 엄청 막 흔드는 영상, 빠른 모션에도 흔들리지 않고 잘 붙어 있다라고 하는 것.</li>
+<li>다이렉트는 굉장히 잘 붙어 있고 feature-based는 가끔씩 팍팍 튀는 모습이 있다.</li>
+</ul>
+<h3 id="lsd-slam-2014">LSD SLAM (2014)</h3>
+<p><strong>최초의 large-scale SLAM</strong></p>
+<p><strong>Direct 최적화 방식</strong></p>
+<ul>
+<li>
+<p>ORB slam 저자들이 자기들이 알기로는 자기들이 제일 처음으로 complete full slam을 만들었고 large-scale을 커버할 수 있는 세상 첫 번째 시스템이다라고 했는데, 사실은 바로 1년 전에 이미 large-scale Direct slam 나왔다. 나왔는데 그냥 무시하고 올린 것&hellip;?</p>
+</li>
+<li>
+<p>사실 large-scale을 먼저 한 쪽은 이쪽이다. 다이렉트 슬램 쪽이지만 건물을 한 바퀴 돌고 와서도 된다. 동네 한 바퀴를 돌고 와서도 된다라는 걸 잘 증명해낸 논문.</p>
+</li>
+<li>
+<p>실제로 이거를 사용을 해가지고 나온 AR 어플리케이션도 굉장히 많았다.</p>
+</li>
+<li>
+<p>당시에 2014년에 나왔었는데 2016년 17년에도 후속 연구들이 나왔고.</p>
+</li>
+<li>
+<p>옴니아 핸드폰에서 처음에는 PTAM으로 포팅을 했었다가 PTAM에서 나타난 문제들이 몇 개 있으니까 LSD SLAM으로 한 번 중간에 업데이트를 한번 했었다는 것도 들었다.</p>
+</li>
+<li>
+<p>지금 보시는 것처럼 이렇게 건물의 옥상을 한 바퀴 이렇게 돌고 와서 루프 클로저도 가능하고 이렇게 해서 스케일 드리프트도 없애고 이런 모습을 잘 보여준다.</p>
+</li>
+<li>
+<p>맵도 훨씬 더 사람 눈에 좋게 보인다. Feature-based slam에서는 후추가루 이렇게 탁 턴 것처럼 점들이 몇 개가 동동 떠다니는 게 다였다면, 여기는 정말 엣지들을 다 보여주기 때문에 사람이 봐서도 여기가 여기 씬이구나라는 걸 어느 정도 알 수가 있다.</p>
+</li>
+</ul>
+<h3 id="direct-vslam--mid-2010s">Direct VSLAM  (mid 2010s)</h3>
+<p><strong>1. SVO (2015) - 400FPS :</strong> 드론에 유용할 듯하다</p>
+<p><strong>2. DSO (2017)</strong></p>
+<p><strong>3. DM-VIO (2021)</strong></p>
+<ul>
+<li>설명은 생략.</li>
+</ul>
+<h3 id="kinectfusion-2012">KinectFusion (2012)</h3>
+<p><strong>RGB-D SLAM</strong></p>
+<ul>
+<li>
+<p>Direct SLAM 가장 첫 번째 DTAM을 연구했던 분이 디탐을 연구하고 나서 느낀 부분: 아, 못 해먹겠다.</p>
+</li>
+<li>
+<p>그래서 RGB-D 쪽으로 꺾었다.</p>
+</li>
+<li>
+<p>딱 타이밍이 정말 절묘했다. DTAM을 연구하고 나서 느꼈었던 것이,  정말 이런 무거운 알고리즘까지 만들어서  슬램을 해야 되나라는 생각을 하고 있었는데, 그러던 참에 마이크로소프트에서 키넥트라는 게임을 런칭을 했다가 게임을 완전히 말아먹고, 그 센서들 재고로 남은 걸 어떻게 처리할까 하다가 컴퓨터 비전 연구하는 사람들이 우리가 쓸게요! 라고 해서 쓴 것.</p>
+</li>
+<li>
+<p>원래는 똑같은 성능의 센서가 그 당시에는 거의 막 한 몇만 달러 주고 사야 되는 거였는데, 근데 마이크로소프트는 그걸 적자 보고 팔 생각하고 싸게 팔았다. 거의 하나에 한 70달러 100달러 이러고 팔았다. 그때부터 RGB-D에 대한 연구가 엄청나게 올라왔다.</p>
+</li>
+<li>
+<p>KinectFusion으로 인해 3D 매핑에 대한 인식 자체가 바뀌었다고 한다.</p>
+<ul>
+<li>
+<p>2012년이면 orb 슬램도 나오기도 전. 이 때까지 사람들이 봤던 건 PTAM / DTAM 밖에 없었다. PTAM은 점 몇 개만 이렇게 해서 동동 떠다니는 거고, DTAM은 멋있기는 한데 엄청나게 무거운 GPU랑 CPU 다 끌어다 써갖고 겨우 되는 거였으니까.</p>
+</li>
+<li>
+<p>이제 어떻게 해야 되지? 하고 있었는데 가벼운 CPU와 GPU의 노트북에서도 돌아간다라는 Kinect Fusion이 나오니까 이제 완전히 새로운 시대가 열렸다라고 한 것.</p>
+</li>
+<li>
+<p>물론 노트북에서 돌아간다고 하지만 실제 데모를 들고 간 거 보면 거의 한 5kg짜리 노트북을 들고 온다. 어쨋든 노트북에서도 된다.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="rgb-d-slam-2010s">RGB-D SLAM (2010s)</h3>
+<p><strong>1. RTAB-Map (2014)</strong></p>
+<p><strong>2. ElasticFusion (2015)</strong></p>
+<p><strong>3. BundleFusion (2017)</strong></p>
+<ul>
+<li>KinectFusion이 계속 발전을 해서 결국에는 훨씬 더 정밀하게 3D 공간을 매핑할 수 있는, 그것도 훨씬 더 가볍게 매핑할 수 있는 방법이 뭘까 연구가 많이 되었다.</li>
+<li>사실상 RGB-D 기반의 3D Reconstruction 쪽으로는 여기서 끝났다고 봐도 무방함.</li>
+</ul>
+<hr>
+<h3 id="loam-2014">LOAM (2014)</h3>
+<ul>
+<li>2014년에 나타난 또 하나의 breakthrough 논문</li>
+<li>3D 라이다를 가지고 살짝 PTAM과 비슷하게 두 개의 쓰레드를 나눠서 어떻게 할 수 있는가, 그리고 포인트 클라우드를 3d에서 매핑을 하려면 어떻게 해야 되는가에 대한 부분을 굉장히 잘 한 논문</li>
+<li>이 당시에는 굉장히 느렸다. 되기는 되는데 엄청 느리다라는 평이 많았다.</li>
+<li>근데 잘 된다는 걸 아니까, 그때부터 지금까지 계속 나오는 연구들이 어떻게 하면 이거 빨리 돌릴 수 있을까에 대한 연구가 주로 이루어졌다고 볼 수 있다.</li>
+</ul>
+<h3 id="3d-lidar-slam-2019-">3D LiDAR SLAM (2019 ~)</h3>
+<p><strong>1. ALOAM (2019)</strong></p>
+<p><strong>2. HDL-SLAM (2019)</strong></p>
+<p><strong>3. FAST-LIO (2021)</strong></p>
+<ul>
+<li>이제는 엄청 빠르다. 더 빨라졌다, 정확하다. 그런 것. HDL SLAM은 약간 다른 성격이긴 하지만 어쨌든 그렇다.</li>
+</ul>
+<hr>
+<h2 id="deep-learning--slam">Deep Learning + SLAM</h2>
+<p>슬램은 그동안 딥러닝이랑 좀 거리가 먼 기술이었다.</p>
+<ul>
+<li>왜냐하면 일단 딥러닝은 파이썬을 많이 쓰는데, 반면에 슬램은 많이들 c++을 쓰고. SLAM도 그럼 파이썬으로 넘어오면 되지 않느냐라고 하는데, 슬램을 파이썬에서 돌리기는 굉장히 어렵다. 파이썬 언어가 가지는 한계가 있다.</li>
+<li>파이썬에서는 독립된 작업을 독립된 스레드에서 돌리는 것은 굉장히 쉽고, 똑같은 작업들을 다른 스레드에서 돌리는 건 쉬운데, 다른 작업에서 서로 다른 스레드 간 소통을 하면서 돌리는 것은 굉장히 어렵다. 파이썬 언어가 그거를 못하게 만들었다(GIL).</li>
+<li>근데 슬램은 그게 필요하다. 그게 코어가 되는 애들이 있다. 그래서 굉장히 어렵다. 그래서 어쩔 수 없이 스레드 하나하나를 직접 다루게 되는 C++을 써야 한다.</li>
+</ul>
+<p>하지만, 딥러닝은 슬램에 다가올 수밖에 없는 미래라고 본다.</p>
+<ul>
+<li>앞으로 슬램은 딥러닝을 반드시 수용을 해야 되고, 딥러닝도 슬램을 필요로 하게 될 것이다.</li>
+<li>왜냐하면 슬램이 줄 수 있는 이 굉장히 조그마한 하나의 점이 있는데 이 하나의 장점으로 인해서 앞으로 3D 비전을 할 때 정확도가 좋아지냐 나빠지느냐는 천지 차이가 나게 될 것이다. 이것 때문에 딥러닝을 하는 사람들도 슬램을 이해하고 받아들일 준비가 되어야 한다.</li>
+</ul>
+<p>Q. 딥러닝을 왜 쓸까?</p>
+<ul>
+<li>딥러닝을 보통 사람들이 이렇게 얘기를 한다.</li>
+<li>엄청나게 많은 데이터의 양으로부터 사람이 직접 뭔가 만들기 어려운 수준의 룰과 패턴을 컴퓨터가 학습하게 한다.</li>
+<li>예를 들어서 낮과 밤에 어떻게 다른가 어떤 물체가 다 낮에는 어떻게 보이고 밤에는 어떻게 보이고 뭐 이런 것들이 있을 건데 그걸 사람이 직접 하나하나씩 코딩을 하기엔 너무나도 많고 비효율적이다.</li>
+<li>딥러닝으로 데이터를 우리가 모아주고 라벨링을 해주면 컴퓨터가 알아서 가장 좋은 representation을 찾아낼 것이다라는 거를 믿고 가는 것.</li>
+<li>슬램에서는 가장 중요하게 보는 세 가지가 있다.
+<ol>
+<li>정확도 (Accuracy)</li>
+<li>속도 (Efficiency)</li>
+<li>강인함 (Robustness)</li>
+</ol>
+</li>
+<li>강인함은 쉽게말해 어디서든 작동을 할 수 있어야 된다는 건데. 슬램에서 지금까지 웬만한 경우는 사람들이 다 손으로 만들었다. 그래서 하나의 씬에서만 작동하는 경우가 많다.</li>
+<li>여기서는 작동했는데 바로 옆에 저 방으로 갖고 갔을 때 잘 안 되는 경우가 너무 많다.</li>
+<li>딥러닝이 바로 이 부분을 해결해 줄 수 있다. 그런 특정한 부분을 딥러닝으로 데이터를 수집해서 가장 적당한 generalization이 잘 되는 representation으로 바꿔주면 된다.</li>
+</ul>
+<h3 id="superpoint--superglue">SuperPoint + SuperGlue</h3>
+<p><strong>: CVPR 2020 SLAM Challenge Winner</strong></p>
+<ul>
+<li>이미지 속에서 코너점들을 찾아내고 매칭을 잘해주는 네트워크를 사용하여 1등함.</li>
+<li>슈퍼포인트는 점들을 찍어주는 역할</li>
+<li>슈퍼글루는 이 이어지는 이어지는 프레임들 사이에서 이거를 연결해주는 역할</li>
+<li>슬램에서 이 정도까지 점 잘 붙어서 나오는 애 있다고 하면 그거는 슬램 5년 차 이상의 엔지니어가 튜닝을 굉장히 잘하는 경우이다. 근데 그게 하나의 신에서만 작동할 확률이 굉장히 높다. 이 씬을 가지고 밤에 있는 씬으로 갔을 때는 안 될 확률이 99%다.</li>
+<li>딥러닝은 밤에 있는 데이터까지 넣어주면 될 거다. 아니면 적어도 될 거라는 희망이 있다.</li>
+<li>&lsquo;그래도 사람이 직접 짜는 게 좋다&rsquo; 이렇게 얘기하는 사람도 있는데, 결국 2020년도 슬램 챌린지 우승자는 orb slam framework 위에다 그대로 슈퍼포인트 슈퍼글루 이것만 바꿔준 것이었다.</li>
+<li>정말 그냥 모듈만 바꿔 낀 것이다. 별거 한 게 없다. 심지어 fine-tuning도 안했다.
+<ul>
+<li>우승자들이 얘기를 한 게, 우리는 그냥 막 인터넷에 있는 거 그냥 갖다 썼다. 왜냐하면 우리는 이 데이터셋에 overfitting을 안 했다고 보여주고 싶어서라고.</li>
+<li>근데 내 생각에는 그냥 귀찮아서 안 한 거다. 근데 그래도 1등이었다.</li>
+</ul>
+</li>
+</ul>
+<h3 id="netvlad">NetVLAD</h3>
+<p><strong>: CVPR 2020 Place Recognition Challenge Winner</strong></p>
+<ul>
+<li>넷플라드란, 여기 공간과 여기 공간은 실제로 같은 공간입니다라는 것을 인식하는 기술 중 하나.</li>
+<li>여기 보시면 여기 통이 이 통과 같은 건데 조금 다른 각도에서 찍었고. 그리고 낮밤이 다르다.</li>
+<li>넷플라드 같은 경우는 이 두 신이 같은 신을 보고 있다고 알 수 있다. 즉, 이 두 이미지가 같은 씬을 보고 있다는 걸 인지를 할 수 있는 기능이다.</li>
+<li>슬램에서는 어디에서 많이 쓰게 되냐면, 루프 클로저를 할 때 많이 쓰게 된다.</li>
+<li>예전에는 SLAM이 이걸 못 했다. 낮밤을 구분을 못했다. 똑같이 생기지 않으면 구분을 못했다. 근데 이제 넷플라드같이 딥러닝 방식으로, data-driven 방식으로 하면 이거를 할 수가 있다.</li>
+<li>실제로 그렇게 해서 CVPR 2020년도에 Place Recognition 대회에서 넷플라드 (정확히는 넷플라드를 개선시킨 패티 넷블라드였나)가 1등을 했다.</li>
+</ul>
+<h3 id="depth-estimation--completion">Depth Estimation / Completion</h3>
+<ul>
+<li>
+<p>또 딥러닝 많이 쓰인 것들 중 하나는 Depth estimation</p>
+</li>
+<li>
+<p>예전에는 이미지 하나를 가지고 뎁스를 알 수는 없었지만 딥러닝을 가지고 뎁스를 알 수도 있게 되었다.</p>
+</li>
+<li>
+<p>또한 RGB-D 센서나 라이다 센서 같은 걸 썼을 때, 거리 센서의 맥시멈 거리를 넘어가 버리게 되면 정확한 depth 가 아닌 쓰레기 값이 들어오게 된다. 그래서 활용할 때 이거를 계산해서 제외해 갖고 해야 되는데 조금 안 좋다. (실제로는 최대측정값보다 조금 더 멀리 있는 걸 수도 있는데)</p>
+</li>
+<li>
+<p>그럼 어떻게 할 수 있냐. 이거를 딥러닝으로 봐서 이거를 실제 raw 데이터랑 섞을 수 있다.그렇게 해서 비어있는 depth 값을 채워주는 depth completion. 이런 것들을 써서 좀 더 안정적인 depth를 뽑아서 슬램에다가 넣어줄 수 있다.</p>
+</li>
+</ul>
+<h3 id="object-detection--semantic-segmentation">Object Detection / Semantic Segmentation</h3>
+<ul>
+<li>Mask Dynamic objects</li>
+<li>슬램에서 지도를 작성하고 있는 도중에 누가 움직이거나 지도가, 공간이 움직여버리면 이 계산이 안 맞는다. 그래서 슬램이 터지는 원인이 된다. 그래서 슬램을 할 때 최대한 움직이는 게 없어야 된다라고 이렇게 얘기를 한다. 모두 그냥 그대로 멈춰라 하고 다 멈춰야 되는 거다. 근데 그럴 수는 없는 거다.</li>
+<li>그러면, 딥러닝을 써서 움직이는 애들을 세그멘테이션을 걸러가지고 없는 사람 취급해버리자 투명 인간 만들어버리자라고 하는 거다. 이런 기술들도 있다.</li>
+</ul>
+<h3 id="기존의-slam-pipeline과-dl-모듈">기존의 SLAM pipeline과 DL 모듈</h3>
+<ul>
+<li>이것만 넣어도 웬만한 지금 나와 있는 논문들은 다 다 씹어버릴 수 있다.
+<ul>
+<li>이미지가 들어왔을 때 원래는 orb를 뽑는데, orb가 아니라 슈퍼 포인트를 먼저 뽑자</li>
+<li>그리고 오브젝트 디텍션과 세그멘테이션 정보를 같이 넣자.</li>
+<li>그리고 local map 트래킹 할 때, 예전에는 디스크립터 기반으로 엮었는데 그게 아니라 슈퍼 포인트와 잘 맞는 슈퍼 글루를 넣자.</li>
+<li>Depth estimation 정보를 통해서 3D 결과를 함께 사용하자.</li>
+<li>나중에 루프 클로저를 할 때는 넷플라드를 사용하자.</li>
+</ul>
+</li>
+<li>성능이 나쁠 수가 없다. 근데 그러면 잘 된 거 아닌가? 슬램은 이걸로 끝났네라고 할 수 있다. 실제로 그렇다.</li>
+<li>그렇지만 나는 그렇게 생각 안 한다. 먼저 딥러닝 방식에는 가장 큰 문제가 하나 있다</li>
+<li>우리가 이미지 스페이스에서 잘 된다는 걸 알고 있다. Object Detection, Semantic Segmentation, Depth Estimation, &hellip; 기가 막히게 잘 된다.</li>
+<li><strong>3D 공간 안에서도 이게 잘 될까? 이게 중요하다.</strong></li>
+<li>3D Object Detection, 3D semantic segmentation. 잘 될지 안 될지. 과연 뉴럴 네트워크가 3D 공간의 정보를 이해할 수 있을까라는 게 핵심 질문.</li>
+<li>물론 논문들 보면 다 잘 된다고 한다. 자기들 데이터셋 안에서는.</li>
+<li>근데 이제 이미지넷 같은 걸 통해서 거기에서 검증이 된 애들이 실제 세상에서 잘 될지 안 되는지 검증이 되듯이, 3D 오브젝트 디텍션, 3D 세그틱 세그멘테이션도 그게 검증이 되어야만 한다.</li>
+<li>아직까지는 그게 안 되고 있다. 아직까지는 3D 오브젝트 디텍션이나 이런 게 정말 제너럴하게 잘 되는 경우가 없다.</li>
+</ul>
+<h3 id="dl-모듈-활용의-문제점">DL 모듈 활용의 문제점</h3>
+<ol>
+<li><strong>충분한 3D 데이터를 준비할 수 있을까?</strong></li>
+<li><strong>Geometry에 대한 모델은 이미 저명함</strong> → 굳이 이것을 Learning 방식으로 대체할 이유?</li>
+</ol>
+<ul>
+<li>어떻게 잘 되게 할까? 가장 심플한 것은 딥러닝에서 문제가 안 풀릴 때는 어떻게 한다? 데이터가 부족하다고 얘기를 한다. 양질의 3D 데이터를 준비를 하면 된다.</li>
+<li>근데 3D 데이터를 준비를 할 수 있을까가 문제다.
+<ul>
+<li>예를 들어서 63빌딩에 대한 데이터를 모아본다고 해볼게요.</li>
+<li>이거에 대한 3d 데이터를 준비를 하려고 하면 63빌딩을 볼 수 있는 가능한 모든 각도에서 사진을 다 찍어야 돼요. 가능할까요?</li>
+<li>밑에서 보이는 것들은 찍을 수 있겠지만 중간에 공중에 뜬 걸 어떻게 할 것이고 하늘에서 본 건 어떻게 할 것이고 그리고 낮에도 그걸 찍어야 되고 밤에도 찍어야 되고 광원이 바뀔 때도 찍어야 되고 뭐가 지나갈 때도 찍어야 되고 이미지는 구할 수 있겠죠. 어떻게든.</li>
+<li>근데 그 이미지에 정확한 3d 위치까지 저희가 라벨링을 같이 넣어줘야 되는데 그게 가능할까요?</li>
+<li>이게 정말 mm 단위로 정확해야 되겠죠. 그렇지 않으면 노이즈한 데이터가 들어가니까.</li>
+<li>요즘에 앤드류 응 교수님도 그렇게 얘기를 하시죠. 이제 빅데이터의 시대가 아니라 굿데이터의 시대다. 노이즈가 없는 게 더 좋다.</li>
+<li>하지만 노이즈가 낄 수밖에 없어요. 많이들 데이터셋에서 그런 걸 많이 사용해요.</li>
+<li>GPS 정보를 pose ground truth로 사용한다? GPS의 오차는 미국에서도 +- 10m입니다. 우리나라는 +- 50m예요. 왜냐하면 우리나라에 GPS가 없기 때문에. KPS 만든다고 해요. KPS 그거 2035년에 끝날 예정입니다. 그러면 우리나라에서는 일단 못 만들죠.</li>
+</ul>
+</li>
+<li>또한, 지오메트리에 대한 모델은 사실 이미 다 수학적으로 풀렸다. 따라서 우리가 이미 모델이 있는데 왜 굳이 러닝 방식을 왜 다시 학습하려고 하냐라는 의문을 피할 수 없다.
+<ul>
+<li>지오메트리에 있는 모델 쓰면 안 되냐. 빛이 물체에 반사돼서 렌즈 안에 들어와서 투과하고 꺾여 들어와가지고 focal length principle axis 맞춰서 들어와서 한 점에 모여서 이미지가 만들어진다.</li>
+<li>이거는 다 풀린 건데 이걸 왜 러닝 방식으로 다시 바꿀까 이 얘기를 많이 하는 거죠.</li>
+</ul>
+</li>
+</ul>
+<h3 id="deep-learning-관련-다양한-시도들">Deep Learning 관련 다양한 시도들</h3>
+<ul>
+<li>3D geometry를 한 번에 다 학습하는 거는 처음에 누군가 해보려고 했는데, 논문거리가 안 나왔다.</li>
+<li>그 당시에 데이터셋이 부족했을 수도 있고, 아이디어가 안 나왔을 수도 있고. 아니면 PC 자원이 부족했을 수도 있고.</li>
+<li>그래서 geometry를 추정할 수 있는 prior를 학습해보자는 방향이 제시됨.
+<ul>
+<li>뎁스 정보를 학습한다든지</li>
+<li>포즈 정보를 학습한다든지</li>
+<li>이미지 pair 정보를 학습한다든지</li>
+</ul>
+</li>
+</ul>
+<p><strong>UnDeepVO (2017)</strong></p>
+<ul>
+<li>학습 용도로 스테레오 이미지를 쓴다.</li>
+<li>추론 시에는 모노 이미지를 쓴다.</li>
+<li>왼쪽 오른쪽 이 두 개를 가지고 ground truth 뎁스 이미지와, 두 이미지 사이의 포즈, 그리고 이를 기반으로 두 이미지 사이의 포즈를 추정하는 네트워크를 학습시킨다.</li>
+<li>한쪽만 오른쪽 이미지만 넣으면, 얘가 하나의 이미지만 가지고 반대쪽에 있는 이미지가 어떻게 생겼을지 예측을 해서 뎁스 이미지를 만들고 포즈 정보를 만들어가지고 나오는 것.</li>
+<li>뎁스 이미지가 나오기 때문에, 카메라에서 언프로젝션 하면 바로 3D 모양이 나오니까 맵도 만들 수 있다라고 함.</li>
+<li>키티 데이터셋에다가 엄청 과적합 한 건데, 과적합 하니까 그래도 괜찮았다. 적당히 봐줄 만한 게 나왔다.</li>
+</ul>
+<p><strong>TartanVO (2020)</strong></p>
+<ul>
+<li>End-to-end Visual odometry 같은 거라고 이해함.</li>
+<li>Matching network / Optical flow network / Pose network 전부 이어 붙임.</li>
+<li>물론 완전 엔드투엔드는 아니지만, 첫 이미지들을 들어오는 걸 보고 나서 이미지 두 개를 매칭을 하고 옵티컬 플로우하고 포즈를 뽑는 네트워크를 셋 다 이어서 만든 것.</li>
+<li>엔드투엔드라고 얘기한 거는 싱글 네트워크가 인풋 아웃풋을 한다는 게 아니라, 그 모든 게 네트워크로 이어져 있다라는 의미</li>
+<li>얘가 그래서 장점이 뭐가 있냐라고 하면, orb 슬램 같은 경우는 갑자기 팍 움직이면 끊긴다. 피처가 트래킹이 안 돼서 끊기는 경우가 많다</li>
+<li>하지만 딥러닝은 그걸 끊기지 않고 간다는 것.</li>
+<li>아직 정확도 측면에서는 orb slam이 더 정확하다. 근데 그러면 orb 슬램이 더 좋은 거 아니냐라고 물어볼 수 있다.</li>
+<li>정확도는 orb 슬램이 더 높다. 근데 orb는 중간에 끊긴다.</li>
+<li>딥러닝은 안 끊긴다. 그래서 더 robustness가 높다라고 얘기를 한다.</li>
+<li>딥러닝 방식을 썼더니 정확도는 잘 모르겠지만 안 끊긴다 이거는 이노베이션이다 이렇게 얘기를 하는 것.</li>
+<li>근데 사실 슬램하는 사람들 입장에서 봤을 때는 끊기면 그냥 껐다 켜면 되지 이렇게 생각하는 경우도 많다.</li>
+</ul>
+<p><strong>D3VO (2020)</strong></p>
+<ul>
+<li>Depth network / Pose network / Aleatoric uncertainty network</li>
+<li>프런트엔드를 전부 딥러닝을 쓰고, 백앤드는 기존의 optimization framework을 사용</li>
+</ul>
+<h3 id="왜-slam에는-딥러닝을-적용해도-혁신이-생기지-않는가">왜 SLAM에는 딥러닝을 적용해도 혁신이 생기지 않는가?</h3>
+<ul>
+<li>결국은 이런 여러 가지 방식을 했는데 결과는 뭐냐라고 하면 조금 더 개선된다는 것.</li>
+<li>결국에는 아까 봤었던 것처럼 기존의 모듈을 딥러닝으로 갈아낀 것과 별다른 게 없다.</li>
+<li>조금 더 다양한 환경에서 작동하고, 조금 덜 끊기고, 조금 더 정확도가 높아질 때도 있고.</li>
+<li>근데 속도가 빨라지지는 않았다. 이건데 사실 연구니까 어쩔 수 없다. 사실 굳이 막 논문을 쓰는 사람들이 이거를 가속시켜서 엄청 빠르게 할 생각은 없고.</li>
+<li>슬램에 정말 진심인 사람들 학교에 가면 다 얘기하고 있다. 딴 데는 딥러닝 적용하면 어쩐다. 이제 이 업계는 뒤집어졌어. 이제 막 이렇게 얘기를 하는데 왜 슬램은 왜 딥러닝 적용해도 그게 그거 같냐. 왜 안 좋아져. 괜히 슬랩 연구 끝났다라고 하는 게 아니다. 괜히 펀딩 안 들어오는 게 아니다 이렇게 얘기를 한다.</li>
+<li>그래서 사람들이 많이 고민한다. 슬램의 본질이 뭐였지? 결국에는 우리가 풀고 싶어 하는 게 뭐지? 우리가 너무 그냥 딥러닝이 잘 된다고 생각하니까 딥러닝을 그냥 보이는 데다 대충 대충 붙여서 적용하느라 그런 게 된 게 아닐까&hellip; 정말 슬램과 딥러닝이 잘 만날 수 있는 곳이 어딜까를 굉장히 고민을 많이 한다.</li>
+<li>결국 내가 있는 곳 주변은 어떤 공간이고 그리고 나는 그 안에 어디 있는가 이걸 풀려고 하는 것이다. 모듈이 어떻게 생겼고 피처 다이렉트 뭐가 됐든 상관이 없다. 지금까지 봤었던 라이다 카메라 다 필요 없다. 다 상관없다. 다 잊어버리고 새로 시작하자.</li>
+<li>그리고 지금까지 만들었던 것의 단점들을 봤었을 때, 포인트 클라우드 맵, 메쉬 맵, occupancy grid map. 열심히 수학적으로 잘 된 건 맞긴 한데.</li>
+<li><strong>문제는 하나도 인터랙션이 가능한 게 없다.</strong></li>
+<li>딥러닝으로 하면 뭔가 이게 강아지다 이게 고양이다. 이게 뭐 자동차다 뭐다 클래스 정보가 나와서 바로 액션을 어떻게 취할 수 있다 이런 게 나오는데 슬램은 그게 아니라 포인트 클라우드맵. 그래서 이걸 뭐 어떻게 하라고 벽이다. 아니다. 저기 안 처박기만 하면 되는 거야. 이거밖에 없는 상태.</li>
+<li>그래서 내 주변에 있는 공간이 뭔데 포인트 클라우드 뭐라는 건지 별 의미가 없는 것. 내 주변은 어떤 공간이고라고 하려면 적어도 이건 테이블이야. 이건 노트북이야. 내 앞에 테이블이 있고 노트북이 있어. 노트북과 인터랙션 하려면 어떻게 어떻게 해야 돼 이런 게 있어야 되는데, 그런 거 전혀 없이 그냥 포인트 클라우드야 이러니까 답이 없다.</li>
+<li>이때부터 spatial AI에 대한 단계를 나누게 되었다. 특히, 레벨 3랑 4가 새롭게 나타남.</li>
+</ul>
+<h2 id="spatial-ai">Spatial AI</h2>
+<p><strong>공간 인식의 단계</strong></p>
+<ol>
+<li><strong>Pose + Sparse map</strong>
+<ul>
+<li>ORB-SLAM</li>
+<li>For localization purposes</li>
+</ul>
+</li>
+<li><strong>Dense map</strong>
+<ul>
+<li>Elastic Fusion</li>
+<li>장애물 충돌회피 및 경로 생성</li>
+</ul>
+</li>
+<li><strong>Semantic understanding</strong></li>
+<li><strong>Object-level, Dynamic map</strong></li>
+</ol>
+<h3 id="semantic-understanding-level-3">Semantic understanding (Level 3)</h3>
+<ul>
+<li>가장 먼저, 2d Object Detection과 Semantic segmentation을 이미 잘 돼 있는 것들을 써보자.</li>
+<li>기존에 슬램도 잘 되어 있고 오브젝트 디텍션 세마틱 세그멘테이션 잘 되어 있는데 기존에 나오는 맵 위에다가 세마틱 레이블을 얹어보자. 그러면 적어도 이 포인트 클라우드가 뭔지는 알 수 있겠다. 이게 의자다. 이게 노트북이다. 이거는 알 수 있겠다.</li>
+<li>그럼 인터랙션을 할 수 있겠다라고 생각한 것.</li>
+</ul>
+<p><strong>CNN SLAM (2017)</strong></p>
+<ul>
+<li>기존에 svo에다가 Mask-RCNN을 그냥 얹은 거였나 그랬었던 걸로 기억.</li>
+</ul>
+<p><strong>SemanticFusion (2017)</strong></p>
+<ul>
+<li>얘는 ElasticFusion에다가 똑같은 걸 얹은 것.</li>
+<li>둘 다 같은 해에 나왔는데 사람들이 생각하는 게 참 비슷하다.</li>
+</ul>
+<p><strong>CubeSLAM (2017)</strong></p>
+<ul>
+<li>이제 object detection으로 해볼까?라는 연구도 나왔다. 바운딩 박스를 이용하자는 것.</li>
+<li>바운딩 박스가 결국 어떤 물체가 여기쯤 있다는 걸 얘기를 하는 건데, 여기서 봐도 바운딩 박스 여기서 찍힐 거고 여기서 봐도 바운딩 박스 여기서 찍힐 거니까 이 정보를 가지고 물체가 있다는 걸 표현을 해보자</li>
+<li>바운딩 박스가 보이는 걸 가지고 물체를 이렇게 찍어주기 시작. 기존에 있었던 그냥 점들이 공중에 둥둥 떠다니는 슬랩하고는 많이 다른 형태.</li>
+<li>실제로 내가 지금 운전을 하면서 자동차들이 어디 있고를 알 수 있는 상황인 거고 그러면 저 자동차들이 멈춰 있나 움직이고 있나 이것까지 구분할 수 있으면 자율주행에 대한 초석이 깔리게 되는 것.</li>
+</ul>
+<p><strong>Fusion++(2018)</strong></p>
+<ul>
+<li>슬램을 하면서 나타나는 3d 공간에서 그 위에다가 2d 이미지 mask-rcnn과 3D에서 나온 detection 정보를 조합을 해가지고 dense point cloud에 레이블을 얹어주는 방법.</li>
+<li>레이블을 모든 것에다가 얹어주는 게 아니라, 내가 알고 있는 오브젝트들에만 할 수 있다.</li>
+<li>한 번 이게 되고 나면 이 물체들을 움직이고 갖고 인터랙션을 할 수가 있다. 왜냐하면 물체들 사이의 관계를 계속 유지를 하려고 하기 때문에.</li>
+<li>즉, object level의 semantic 맵이 나타나게 된다.</li>
+</ul>
+<h3 id="multi-modal-fusion">Multi-modal fusion</h3>
+<ul>
+<li>2D image 로부터 얻을 수 있는 semantic 정보 (i.e. object detection, semantic segmentation)</li>
+<li>3D 공간으로부터 얻을 수 있는 semantic 정보 (i.e. 3D object detection, 3D semantic segmentation)</li>
+</ul>
+<h3 id="deep-factor-optimization">Deep Factor Optimization</h3>
+<ul>
+<li>동일 클래스에도 다양한 형태의 생김새가 있음.
+<ul>
+<li>Shape</li>
+<li>Appearance</li>
+</ul>
+</li>
+<li>딥러닝 네트워크를 돌렸을 때, 이 네트워크 안에서는 추론할 수 있는 다양한 오브젝트 클래스들이 있을 것. 근데, 모든 오브젝트들이 똑같이 생긴 게 아니고 다른 형태를 가질 수도 있고, 다른 appearance를 가질 수도 있고.</li>
+<li>의자지만 얘보다 조금 더 넓고 짧은 것도 의자고, 조금 더 가늘고 긴 것도 의자고. 즉, 클래스마다 어떤 distribution을 가지게 된다.</li>
+<li>이 distribution을 가지고 우리가 지금 보고 있는 정보, 즉 observation 정보와 함께 조합을 하면 partially observable한 객체의 쉐입에 대한 정보를 구하는 것이 가능하다.</li>
+<li>이게 그럼 장점이 뭐냐 하면, 옛날에는 shape 복원을 위해, 모든 형태의 데이터들을 다 한 번씩 본 적이 있어야지 네트워크가 잘 동작했다.</li>
+<li>하지만 만약, 어떤 클래스에 대한 distribution만 알고 있다면 그 분포 안에서 실제로 본 적 없는 오브젝트의 형태도 정확하게 추론할 수 있다. 즉, zero-shot detection이 된다고 이해할 수 있다.</li>
+<li>단순히 클래스만 구분하는 게 아니고, 클래스와 shape과 내가 그 공간 안에 있는 pose까지 구해낼 수 있다고 볼 수 있다.</li>
+</ul>
+<p><strong>Example 1: Tesla Auto-labeling</strong></p>
+<ul>
+<li>그래서 이거를 실제로 쓰고 있는 곳이 어디냐? 가장 앞서 있는 곳은 테슬라.</li>
+<li>테슬라의 Auto-labeling 기술은, 정확한 3D perception 정보를 기반으로 2D 이미지 perception 성능을 높인다.</li>
+<li>근데 이거를 실제로 운행하고 있는 차에서는 할 수가 없고, 서버에서 돌리는 것. 서버에서 돌려서 정확한 3d 공간을 만들면, 3D를 2D로 투영을 시켜서 이 정보를 가지고 2D 디텍션을 그리고 2D 세그멘테이션의 성능을 높인다.</li>
+<li>옛날 같았으면 이게 라벨이 좋은 라벨인지 아닌지 모르겠다였는데, 그게 아니라 그냥 이 시퀀스를 가지고 3D 씬을 만들어버린 다음에, 정확한 슬램과 딥러닝을 섞어서 정확한 3D 씬을 만들고 그걸로 바로 2D 이미지 네트워크의 트레이닝에 바로 넣는 것.</li>
+</ul>
+<p><strong>Example 2: Compressed deep factor</strong></p>
+<ul>
+<li>RGB-D SLAM이 다 여기로 와버렸다.</li>
+<li>RGBD SLAM은 더 이상 reconstruction을 하려고 하지 않고, RGB D 정보를 가지고 좋은 ground-truth 정보가 나오니까 이걸 기반으로 학습을 하고 좋은 딥러닝 슬램을 만들겠다라고 하는 중.</li>
+</ul>
+<p><strong>CodeMapping (2021)</strong></p>
+<ul>
+<li>모노 카메라임에도 불구하고 매우 dense한 씬을 만들면서 갈 수 있다는 걸 보여줌.</li>
+<li>이미지가 들어올 때, 댑스와 포즈에 대한 정보를  auto-encoder로 압축을 시켜놓은 것.</li>
+<li>오토인코더를 압축을 시켜놓고 나면, 굉장히 작은 벡터가 됨</li>
+<li>한 30개 40개 정도의 정보가 있는 벡터가 되는데, 여기 하나하나에 있는 값을 슬램이 마음대로 바꿀 수 있음. 이걸 바꿈에 따라서 정확한 댑스로도 갈 수 있고 안 정확한 댑스로도 갈 수 있다. 정확한 포즈로도 갈 수 있고 안 정확한 포즈로도 갈 수 있다.</li>
+<li>즉, 슬램이 이거를 정확한 방향으로 가게 만들어준다라고 생각을 하고 하는 것.</li>
+</ul>
+<p><strong>NodeSLAM (2020)</strong></p>
+<ul>
+<li>노드 슬램을 돌리기 전에 있는 네트워크는 컵은 컵이다. 컵이 어떤 형태로 만들어지는지 대충 알고 있다.</li>
+<li>slam 중 마주치는 컵은 각각 다 생김새가 다를 수 있다. 색깔도 다르고 두께도 다르고 굵기도 다르고 높이도 다르고.</li>
+<li>네트워크는 이 다양한 컵들을 전부 본 적이 없다.</li>
+<li>하지만, 슬램으로 돌아가면서 다양한 각도에서 봤을 때 점점 정확한 쉐입으로 최적화되는 걸 보여주겠다는 것.</li>
+<li>즉, slam 최적화 과정에서 역으로 shape에 대한 정확한 추론이 가능해짐.</li>
+<li>하나의 클래스 안에 있는 다양한 매니폴드 아내를 탐색하는 거를 보여주는 아주 좋은 예시</li>
+</ul>
+<p><strong>NeRF</strong></p>
+<ul>
+<li>2020년에 나오고 나서 굉장히 핫하다</li>
+<li>왜 핫하냐고 하면, 3D 씬에 대한 정보 자체를 네트워크 하나에다 담을 수 있고, 그것을 이제 학습을 시킬 수 있다는 것.</li>
+<li>학습을 시킬 수 있다는 것은 미분이 가능하다는 형태라는 것.</li>
+<li>미분이 가능하다는 건 슬램에서도 옵티마이제이션을 할 수 있다는 얘기가 된다.</li>
+</ul>
+<p><strong>iMAP (2021)</strong></p>
+<ul>
+<li>따라서 슬램 안에다가 NeRF 네트워크를 아예 넣어버린 논문.</li>
+</ul>
+<p><strong>NICE-SLAM (2022)</strong></p>
+<ul>
+<li>
+<p>마찬가지로 슬램 안에다가 NeRF 네트워크를 아예 넣어버린 논문.</p>
+</li>
+<li>
+<p>iMAP이 비효율적인 부분이 있어서 이를 개선했다.</p>
+<ul>
+<li>아이맵 같은 경우는 NeRF 네트워크는 작게 만들었지만, 공간 전체를 다 업데이트하려다 보니까 너무 느리다고 나왔었고, 나이트 슬램 같은 경우는 그런 네트워크들을 굉장히 많이 쪼개서 로컬 bundle adjustment 할 때 작은 단위로 하듯이 그렇게 해서 만들었다고 들었다.</li>
+</ul>
+</li>
+<li>
+<p>이거를 쓰면 어떤 좋은 점이 있냐. NeRF를 슬램에다 넣었더니 어떤 효과가 있었냐</p>
+<p>→  안 보이는 곳에 대한 맵을 만들 수 있다는 것.</p>
+</li>
+<li>
+<p>내가 이 신에 대해서 학습을 했고, 내가 본 적이 없는 곳에 대한 뷰를 만들 수 있기 때문에, 보이지 않는 곳에 대한, 그러니까 그림자가 진 곳에 대한 맵도 만들 수 있게 된다.</p>
+</li>
+<li>
+<p>그렇게 되면 지금까지 없었던 정말 빽빽하게 나오는 맵을 만들 수가 있게 된다. 빈 곳이 하나도 없는 맵을 만들 수 있다.</p>
+</li>
+<li>
+<p>그래서 나이스 슬램에서는 지금 보여주는 것처럼 구멍이 뚫린 곳이 한 곳도 없다.</p>
+</li>
+<li>
+<p>그래서 NeRF를 써보는 방식들도 많이 나오고 있는데, 그래서 결국에 뭐가 제일 좋을 것 같냐라고 하면 솔직히 아직은 잘 모르겠다.</p>
+</li>
+<li>
+<p>너프가 답이 될 거라고는 생각은 하지 않는다. 그렇게 단순하게 너프를 끼워넣었더니 세상에 모든 게 다 풀렸다라고는 생각하지 않는다.</p>
+</li>
+<li>
+<p>하지만 여전히 너프는 굉장히 좋은 방법이라고 생각을 하고, 아직은 조금 더 다양한 시도가 있어야 될 것 같다.</p>
+</li>
+<li>
+<p>정확한 3d 공간을 도출하기 위해서는 learning-based approach와 슬램의 probabilistic fusion이 둘 다 적절하게 섞여야 된다라는 것만큼은 확실해보인다.</p>
+</li>
+<li>
+<p>너프를 쓰던 옵티마이즈 디팩터를 쓰던 어떤 방식을 쓰던, 결국에 공간에 대한 정확한 인식을 하기 위해서는 학습 기반 방법들은 제너럴라이제이션만 잘 되고 정확한 로컬라이제이션이 안 될 거기 때문에 그걸 정확하게 봐줄 수 있는 슬램이 무조건 붙어야 된다 라고 생각을 한다.</p>
+</li>
+</ul>
+<h2 id="로드맵-강의를-마치며">로드맵: 강의를 마치며&hellip;</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://res.craft.do/user/full/cbf4739d-a8fe-1bea-b815-c6e8343d6213/doc/C6E1AB32-944E-44BD-BA45-CD54096E47D9/B72B07A4-E7C3-4C18-AED3-48FAA489604C_2/8eKxUIL1bhTJicGnZ0yGIwhrrdPjA1bi3zBuh7HlUokz/Image.png"
+        data-srcset="https://res.craft.do/user/full/cbf4739d-a8fe-1bea-b815-c6e8343d6213/doc/C6E1AB32-944E-44BD-BA45-CD54096E47D9/B72B07A4-E7C3-4C18-AED3-48FAA489604C_2/8eKxUIL1bhTJicGnZ0yGIwhrrdPjA1bi3zBuh7HlUokz/Image.png, https://res.craft.do/user/full/cbf4739d-a8fe-1bea-b815-c6e8343d6213/doc/C6E1AB32-944E-44BD-BA45-CD54096E47D9/B72B07A4-E7C3-4C18-AED3-48FAA489604C_2/8eKxUIL1bhTJicGnZ0yGIwhrrdPjA1bi3zBuh7HlUokz/Image.png 1.5x, https://res.craft.do/user/full/cbf4739d-a8fe-1bea-b815-c6e8343d6213/doc/C6E1AB32-944E-44BD-BA45-CD54096E47D9/B72B07A4-E7C3-4C18-AED3-48FAA489604C_2/8eKxUIL1bhTJicGnZ0yGIwhrrdPjA1bi3zBuh7HlUokz/Image.png 2x"
+        data-sizes="auto"
+        alt="https://res.craft.do/user/full/cbf4739d-a8fe-1bea-b815-c6e8343d6213/doc/C6E1AB32-944E-44BD-BA45-CD54096E47D9/B72B07A4-E7C3-4C18-AED3-48FAA489604C_2/8eKxUIL1bhTJicGnZ0yGIwhrrdPjA1bi3zBuh7HlUokz/Image.png"
+        title="Image.png" /></p>
+<ul>
+<li>이미지가 들어오면 많이들 사용하는 2D 딥러닝 방식을 사용. (2D)
+<ul>
+<li>Object detection / Object segmentation → Accurate 2D representation</li>
+</ul>
+</li>
+<li>이미지가 들어오면 슬램도 한다. (3D)
+<ul>
+<li>Deep factor optimization 이나 nerf, code등 기반의 최적화 → Accurate 3D representation</li>
+</ul>
+</li>
+<li>2D + 3D → Multi-modal fusion</li>
+<li>이 중에서 얘가 없어도 안 되고 얘가 없어도 안 된다.</li>
+</ul></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-06-12</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+            <a href="/posts/kroc_2024_plenary/" class="next" rel="next" title="[KRoC 2024] Plenary Talk: 오준호 교수 강연 정리">[KRoC 2024] Plenary Talk: 오준호 교수 강연 정리<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2023 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Ikhyeon Cho</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":11,"noResultsFound":"No results found","snippetLength":0,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
