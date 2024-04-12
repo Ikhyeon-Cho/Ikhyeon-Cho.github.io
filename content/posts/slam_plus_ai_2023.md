@@ -2,6 +2,7 @@
 title = '[ModuCon 2023] SLAM + AI 강연 정리'
 date = 2023-06-12T11:02:27+09:00
 draft = false
+tags = ['robotics', 'conference']
 +++
 2023년 2월 유튜브 모두의연구소 채널에서 공간지능(Spatial AI)을 주제로 한 강연을 듣고 그 내용을 정리하였다.
 <!--more-->
