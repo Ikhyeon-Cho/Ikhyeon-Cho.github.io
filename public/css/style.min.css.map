@@ -1,7 +1,7 @@
 {
 	"version": 3,
 	"file": "style.min.css",
-	"sourceRoot": "/Users/ikhyeon/Blogging",
+	"sourceRoot": "/home/ikhyeon/Downloads/Ikhyeon-Cho.github.io",
 	"sources": [
 		"themes/LoveIt/assets/css/style.scss",
 		"themes/LoveIt/assets/lib/normalize/normalize.css",

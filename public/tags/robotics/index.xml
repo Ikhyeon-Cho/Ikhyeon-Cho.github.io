@@ -1,23 +1,23 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Robotics - Tag - Ikhyeon&#39;s Blog</title>
-        <link>http://localhost:1313/tags/robotics/</link>
+        <link>http://ikhyeon-cho.github.io/tags/robotics/</link>
         <description>Robotics - Tag - Ikhyeon&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>tre0430@korea.ac.kr (Ikhyeon Cho)</managingEditor>
-            <webMaster>tre0430@korea.ac.kr (Ikhyeon Cho)</webMaster><lastBuildDate>Thu, 22 Feb 2024 18:50:42 &#43;0900</lastBuildDate><atom:link href="http://localhost:1313/tags/robotics/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>tre0430@korea.ac.kr (Ikhyeon Cho)</webMaster><lastBuildDate>Thu, 22 Feb 2024 18:50:42 &#43;0900</lastBuildDate><atom:link href="http://ikhyeon-cho.github.io/tags/robotics/" rel="self" type="application/rss+xml" /><item>
     <title>[KRoC 2024] Plenary Talk: 오준호 교수 강연 정리</title>
-    <link>http://localhost:1313/posts/kroc_2024_plenary/</link>
+    <link>http://ikhyeon-cho.github.io/posts/kroc_2024_plenary/</link>
     <pubDate>Thu, 22 Feb 2024 18:50:42 &#43;0900</pubDate>
     <author>Ikhyeon Cho</author>
-    <guid>http://localhost:1313/posts/kroc_2024_plenary/</guid>
+    <guid>http://ikhyeon-cho.github.io/posts/kroc_2024_plenary/</guid>
     <description><![CDATA[<p>2024년 2월 KRoC 첫 번째 기조강연이었던 오준호 교수의 연설을 듣고 그 내용을 정리하였다.</p>]]></description>
 </item>
 <item>
     <title>[ModuCon 2023] SLAM &#43; AI 강연 정리</title>
-    <link>http://localhost:1313/posts/slam_plus_ai_2023/</link>
+    <link>http://ikhyeon-cho.github.io/posts/slam_plus_ai_2023/</link>
     <pubDate>Mon, 12 Jun 2023 11:02:27 &#43;0900</pubDate>
     <author>Ikhyeon Cho</author>
-    <guid>http://localhost:1313/posts/slam_plus_ai_2023/</guid>
+    <guid>http://ikhyeon-cho.github.io/posts/slam_plus_ai_2023/</guid>
     <description><![CDATA[<p>2023년 2월 유튜브 모두의연구소 채널에서 공간지능(Spatial AI)을 주제로 한 강연을 듣고 그 내용을 정리하였다.</p>]]></description>
 </item>
 </channel>
