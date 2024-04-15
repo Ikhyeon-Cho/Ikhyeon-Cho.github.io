@@ -2,11 +2,11 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>http://ikhyeon-cho.github.io/posts/kroc_2024_plenary/</loc><lastmod>2024-02-22T18:50:42&#43;09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://ikhyeon-cho.github.io/tags/conference/</loc><lastmod>2024-02-22T18:50:42&#43;09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://ikhyeon-cho.github.io/</loc><lastmod>2024-02-22T18:50:42&#43;09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://ikhyeon-cho.github.io/posts/</loc><lastmod>2024-02-22T18:50:42&#43;09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://ikhyeon-cho.github.io/tags/robotics/</loc><lastmod>2024-02-22T18:50:42&#43;09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://ikhyeon-cho.github.io/tags/</loc><lastmod>2024-02-22T18:50:42&#43;09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://ikhyeon-cho.github.io/posts/slam_plus_ai_2023/</loc><lastmod>2023-06-12T11:02:27&#43;09:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://ikhyeon-cho.github.io/categories/</loc><changefreq>weekly</changefreq><priority>0.5</priority></url></urlset>
+            <loc>http://ikhyeon-cho.github.io/posts/kroc_2024_plenary/</loc><lastmod>2024-02-22T18:50:42&#43;09:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
+            <loc>http://ikhyeon-cho.github.io/tags/conference/</loc><lastmod>2024-02-22T18:50:42&#43;09:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
+            <loc>http://ikhyeon-cho.github.io/</loc><lastmod>2024-02-22T18:50:42&#43;09:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
+            <loc>http://ikhyeon-cho.github.io/posts/</loc><lastmod>2024-02-22T18:50:42&#43;09:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
+            <loc>http://ikhyeon-cho.github.io/tags/robotics/</loc><lastmod>2024-02-22T18:50:42&#43;09:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
+            <loc>http://ikhyeon-cho.github.io/tags/</loc><lastmod>2024-02-22T18:50:42&#43;09:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
+            <loc>http://ikhyeon-cho.github.io/posts/slam_plus_ai_2023/</loc><lastmod>2023-06-12T11:02:27&#43;09:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
+            <loc>http://ikhyeon-cho.github.io/categories/</loc><changefreq>daily</changefreq><priority>0.5</priority></url></urlset>
