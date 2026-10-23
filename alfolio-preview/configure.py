@@ -43,6 +43,11 @@ nav_order: 1
 {% bibliography %}
 </div>
 """)
+# Ensure shared academic link style applies on Publications page as well as Home.
+pub=root/"_pages"/"publications.md"
+ps=pub.read_text()
+ps=ps.replace('<div class="publications">', '<style>'+style+'</style>\n<div class="publications">', 1)
+pub.write_text(ps)
 for p in (root/"_pages").glob("*"):
   if p.is_file() and p.name not in {"about.md","publications.md","404.md"}: p.unlink()
 for d in ["_news","_posts","_projects","_books","_teachings","_talks","assets/jupyter"]:
