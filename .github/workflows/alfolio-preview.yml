@@ -1,0 +1,59 @@
+name: Test actual al-folio theme (no deployment)
+on:
+  push:
+    branches: [chatgpt-alfolio-preview-2026]
+    paths:
+      - 'alfolio-preview/**'
+      - '.github/workflows/alfolio-preview.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-screenshot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout test branch
+        uses: actions/checkout@v4
+      - name: Fetch official al-folio source
+        run: |
+          git clone --depth 1 --branch main https://github.com/alshedivat/al-folio.git alfolio-src
+          python3 alfolio-preview/configure.py
+      - name: Setup Ruby and upstream Gemfile
+        uses: ruby/setup-ruby@v1
+        with:
+          working-directory: alfolio-src
+          ruby-version: '3.3.5'
+          bundler-cache: true
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install upstream build dependencies
+        working-directory: alfolio-src
+        run: |
+          npm ci
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+      - name: Build with the official Jekyll theme and scholar
+        working-directory: alfolio-src
+        env:
+          JEKYLL_ENV: production
+        run: bundle exec jekyll build --trace
+      - name: Render desktop and mobile screenshots
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+          python3 -m http.server 4000 --directory alfolio-src/_site > /tmp/alfolio-http.log 2>&1 &
+          sleep 4
+          node alfolio-preview/screenshot.cjs
+      - name: Upload screenshots and the real Jekyll output
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: alfolio-real-render
+          path: |
+            alfolio-preview/screenshots/
+            alfolio-src/_site/
+          retention-days: 7
