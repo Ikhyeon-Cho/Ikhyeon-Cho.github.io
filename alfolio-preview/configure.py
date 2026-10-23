@@ -9,7 +9,7 @@ edits={
   "first_name": "Your", "middle_name": '""', "last_name": "Name",
   "url": '""', "baseurl": '""', "search_enabled": "false",
   "enable_darkmode": "false", "last_updated": "false",
-  "footer_fixed": "false", "max_width": "860px"
+  "footer_fixed": "false", "max_width": "860px", "navbar_fixed": "false"
 }
 for key,val in edits.items():
   pattern=rf"^{re.escape(key)}:\s*[^\n]*$"
@@ -21,56 +21,10 @@ s=s.replace("imagemagick:\n  enabled: true", "imagemagick:\n  enabled: false")
 cfg.write_text(s)
 
 # Keep the upstream Jekyll layout, Scholar plugin, theme and Gemfile unchanged.
-about="""---
-layout: about
-title: about
-permalink: /
-subtitle: Ph.D. Candidate in Robotics · Expected Graduation 2026
-profile:
-  align: right
-  image: profile-placeholder.png
-  image_circular: false
-  more_info: ""
-selected_papers: true
-social: false
-announcements:
-  enabled: false
-latest_posts:
-  enabled: false
----
-<style>
-:root {
-  --global-theme-color: #285f7f;
-  --global-hover-color: #285f7f;
-  --global-footer-bg-color: #f7f8f9;
-  --global-footer-text-color: #52616c;
-  --global-footer-link-color: #285f7f;
-}
-body { font-family: Arial, Helvetica, sans-serif; }
-.post-header .post-title { font-size: 2.5rem; font-weight: 400; }
-.post-header .desc { font-size: 1rem; }
-.post article h2 { font-size: 1.52rem; font-weight: 400; margin-top: 1.7rem; margin-bottom: 0.7rem; }
-.post article > h2 { text-transform: capitalize; }
-.profile.float-right { width: 26%; max-width: 172px; margin-left: 24px; margin-bottom: 12px; }
-.profile figure { margin-bottom: 0; }
-.profile img { box-shadow: none !important; border-radius: 2px !important; }
-.publications .bibliography li { margin-bottom: 1.15rem; }
-.publications .title { font-weight: 500; }
-footer { border-top: 1px solid #e5e9ec; font-size: .78rem; }
-@media (max-width: 575px) {
-  .post-header .post-title { font-size: 2.05rem; }
-  .post article h2 { font-size: 1.4rem; }
-  .profile.float-right { float: right !important; width: 31%; max-width: 110px; margin-left: 16px; margin-bottom: 10px; }
-  .post { overflow-wrap: anywhere; }
-}
-</style>
-
-I am a Ph.D. candidate working in robotics, autonomous driving, and 3D environment perception.
-
-## Research Interests
-
-My research focuses on **3D scene understanding**, **robotic perception**, and **spatial representations for autonomous systems**. This is placeholder text for design validation, not a finalized research statement.
-"""
+# Apply small, tracked text/style overrides. Keep upstream about layout and bibliography rendering.
+about=(Path(__file__).resolve().parent/"overrides"/"about.md").read_text()
+style=(Path(__file__).resolve().parent/"overrides"/"academic.css").read_text()
+about=about.replace("{% include academic.css %}",style)
 (root/"_pages"/"about.md").write_text(about)
 (root/"_pages"/"publications.md").write_text("""---
 layout: page
@@ -97,7 +51,7 @@ for d in ["_news","_posts","_projects","_books","_teachings","_talks","assets/ju
   author = {Name, Your and Coauthor, Example},
   booktitle = {Fictional Conference (Not a Publication)},
   year = {2026},
-  abbr = {DEMO},
+  abbr = {ICRA},
   selected = {true},
   bibtex_show = {true}
 }
@@ -106,7 +60,7 @@ for d in ["_news","_posts","_projects","_books","_teachings","_talks","assets/ju
   author = {Name, Your and Coauthor, Example},
   booktitle = {Fictional Conference (Not a Publication)},
   year = {2025},
-  abbr = {DEMO},
+  abbr = {CVPR},
   selected = {true},
   bibtex_show = {true}
 }
