@@ -8,7 +8,7 @@ require("fs").mkdirSync("alfolio-preview/screenshots",{recursive:true});
    if (!response?.ok()) throw new Error("Home page failed: "+name);
    const body=await page.locator("body").innerText();
    if (!body.includes("DEMO ONLY")) throw new Error("BibTeX selected paper not rendered: "+name);
-   const navText=await page.locator("#navbar").innerText();
+   const navText=await page.locator("#navbar").textContent();
    if (!navText.includes("About")||!navText.includes("Publications")) throw new Error("Title Case navigation missing: "+navText);
    const selectedTitle=await page.locator(".post article h2").allTextContents();
    if (!selectedTitle.some(t=>t.trim()==="Selected Publications")) throw new Error("Title Case Selected Publications missing: "+JSON.stringify(selectedTitle));
