@@ -8,6 +8,20 @@ require("fs").mkdirSync("alfolio-preview/screenshots",{recursive:true});
    if (!response?.ok()) throw new Error("Home page failed: "+name);
    const body=await page.locator("body").innerText();
    if (!body.includes("DEMO ONLY")) throw new Error("BibTeX selected paper not rendered: "+name);
+   const navText=await page.locator("#navbar").innerText();
+   if (!navText.includes("About")||!navText.includes("Publications")) throw new Error("Title Case navigation missing: "+navText);
+   const selectedTitle=await page.locator(".post article h2").allTextContents();
+   if (!selectedTitle.some(t=>t.trim()==="Selected Publications")) throw new Error("Title Case Selected Publications missing: "+JSON.stringify(selectedTitle));
+   const titleBox=await page.locator(".academic-hero .post-title").boundingBox();
+   const photoBox=await page.locator(".academic-hero .academic-portrait").boundingBox();
+   if (!titleBox||!photoBox||Math.abs(titleBox.y-photoBox.y)>24) throw new Error("Photo not aligned to name on "+name+" "+JSON.stringify({titleBox,photoBox}));
+   const labels=(await page.locator(".publications .links a").allTextContents()).map(t=>t.trim());
+   for (const required of ["Paper","Code","Project"]){
+     if (!labels.includes(required)) throw new Error("Missing "+required+" resource link on "+name+" "+JSON.stringify(labels));
+   }
+   if (labels.includes("Website")||labels.includes("PDF")||labels.includes("Bib")) throw new Error("Old links still visible "+JSON.stringify(labels));
+   const borderWidth=await page.locator(".publications .links a").first().evaluate(el=>getComputedStyle(el).borderTopWidth);
+   if(borderWidth!=="0px") throw new Error("Outline remains on resource links: "+borderWidth);
    const bibLinks = await page.getByText("Bib",{exact:true}).count();
    if (bibLinks>0) throw new Error("Bib button remains visible: "+name);
    const resourceHrefs=await page.locator('.publications a[href*="example.com/demo-"]').evaluateAll(links=>links.map(a=>a.getAttribute('href')));
