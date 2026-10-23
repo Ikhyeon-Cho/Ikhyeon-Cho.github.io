@@ -1,4 +1,5 @@
 const { chromium } = require("playwright");
+require("fs").mkdirSync("alfolio-preview/screenshots",{recursive:true});
 (async () => {
  const browser = await chromium.launch({headless:true});
  for (const [name,width,height] of [["desktop",1440,900],["mobile",390,844]]) {
