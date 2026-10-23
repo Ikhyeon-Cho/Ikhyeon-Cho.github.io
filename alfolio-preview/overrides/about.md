@@ -1,6 +1,6 @@
 ---
 layout: about
-title: about
+title: About
 permalink: /
 subtitle: Ph.D. Candidate in Robotics · Expected Graduation 2026
 profile:
@@ -8,6 +8,11 @@ profile:
   image: profile-placeholder.png
   image_circular: false
   more_info: ""
+research_interests: >-
+  My research lies at the intersection of 3D computer vision, robotic perception,
+  and autonomous systems. I am particularly interested in developing robust spatial
+  representations that enable autonomous agents to understand complex real-world environments.
+research_areas: "3D Scene Understanding, Robotic Perception, Autonomous Driving, Spatial Intelligence"
 selected_papers: true
 social: false
 announcements:
@@ -25,7 +30,3 @@ latest_posts:
   <span title="Google Scholar profile to be added">Scholar</span>
   <a href="https://github.com/Ikhyeon-Cho" rel="noopener noreferrer" target="_blank">GitHub ↗</a>
 </div>
-
-<h2 class="academic-research-heading">Research Interests</h2>
-<p>My research lies at the intersection of 3D computer vision, robotic perception, and autonomous systems. I am particularly interested in developing robust spatial representations that enable autonomous agents to understand complex real-world environments.</p>
-<p class="academic-areas"><strong>Research Areas:</strong> 3D Scene Understanding, Robotic Perception, Autonomous Driving, Spatial Intelligence</p>
