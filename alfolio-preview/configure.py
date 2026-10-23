@@ -8,12 +8,16 @@ s=cfg.read_text()
 edits={
   "first_name": "Your", "middle_name": '""', "last_name": "Name",
   "url": '""', "baseurl": '""', "search_enabled": "false",
-  "enable_darkmode": "false", "last_updated": "false"
+  "enable_darkmode": "false", "last_updated": "false",
+  "footer_fixed": "false", "max_width": "860px"
 }
 for key,val in edits.items():
   pattern=rf"^{re.escape(key)}:\s*[^\n]*$"
   s,n=re.subn(pattern, f"{key}: {val}", s, count=1, flags=re.M)
   if n!=1: raise RuntimeError(f"Missing upstream setting: {key}")
+# No dark fixed footer and no unlicensed stock-photo attribution in a minimal academic site.
+s=re.sub(r'(?m)^footer_text: >[^\n]*\n(?:^  .*\n)+', 'footer_text: ""\n', s, count=1)
+s=s.replace("imagemagick:\n  enabled: true", "imagemagick:\n  enabled: false")
 cfg.write_text(s)
 
 # Keep the upstream Jekyll layout, Scholar plugin, theme and Gemfile unchanged.
@@ -34,6 +38,33 @@ announcements:
 latest_posts:
   enabled: false
 ---
+<style>
+:root {
+  --global-theme-color: #285f7f;
+  --global-hover-color: #285f7f;
+  --global-footer-bg-color: #f7f8f9;
+  --global-footer-text-color: #52616c;
+  --global-footer-link-color: #285f7f;
+}
+body { font-family: Arial, Helvetica, sans-serif; }
+.post-header .post-title { font-size: 2.5rem; font-weight: 400; }
+.post-header .desc { font-size: 1rem; }
+.post article h2 { font-size: 1.52rem; font-weight: 400; margin-top: 1.7rem; margin-bottom: 0.7rem; }
+.post article > h2 { text-transform: capitalize; }
+.profile.float-right { width: 26%; max-width: 172px; margin-left: 24px; margin-bottom: 12px; }
+.profile figure { margin-bottom: 0; }
+.profile img { box-shadow: none !important; border-radius: 2px !important; }
+.publications .bibliography li { margin-bottom: 1.15rem; }
+.publications .title { font-weight: 500; }
+footer { border-top: 1px solid #e5e9ec; font-size: .78rem; }
+@media (max-width: 575px) {
+  .post-header .post-title { font-size: 2.05rem; }
+  .post article h2 { font-size: 1.4rem; }
+  .profile.float-right { float: right !important; width: 31%; max-width: 110px; margin-left: 16px; margin-bottom: 10px; }
+  .post { overflow-wrap: anywhere; }
+}
+</style>
+
 I am a Ph.D. candidate working in robotics, autonomous driving, and 3D environment perception.
 
 ## Research Interests
