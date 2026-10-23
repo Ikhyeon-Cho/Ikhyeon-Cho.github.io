@@ -7,12 +7,17 @@ on:
       - '.github/workflows/alfolio-preview.yml'
   workflow_dispatch:
 
+concurrency:
+  group: alfolio-preview-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
 jobs:
   build-and-screenshot:
     runs-on: ubuntu-latest
+    timeout-minutes: 8
     steps:
       - name: Checkout test branch
         uses: actions/checkout@v4
@@ -29,13 +34,12 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-      - name: Install upstream build dependencies
-        working-directory: alfolio-src
+          node-version: '24'
+      - name: Verify image processing dependencies
         run: |
-          npm ci
-          sudo apt-get update
-          sudo apt-get install -y imagemagick
+          if ! command -v convert >/dev/null && ! command -v magick >/dev/null; then
+            echo "ImageMagick is missing on runner"; exit 1
+          fi
       - name: Build with the official Jekyll theme and scholar
         working-directory: alfolio-src
         env:
@@ -44,7 +48,7 @@ jobs:
       - name: Render desktop and mobile screenshots
         run: |
           npm install --no-save playwright
-          npx playwright install --with-deps chromium
+          npx playwright install chromium
           python3 -m http.server 4000 --directory alfolio-src/_site > /tmp/alfolio-http.log 2>&1 &
           sleep 4
           node alfolio-preview/screenshot.cjs
