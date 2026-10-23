@@ -54,7 +54,7 @@ nav_order: 1
 """)
 for p in (root/"_pages").glob("*"):
   if p.is_file() and p.name not in {"about.md","publications.md","404.md"}: p.unlink()
-for d in ["_news","_posts","_projects","_books","_teachings","_talks"]:
+for d in ["_news","_posts","_projects","_books","_teachings","_talks","assets/jupyter"]:
   p=root/d
   if p.exists(): shutil.rmtree(p)
 
