@@ -1,78 +1,86 @@
-/* Academic Minimal preview — scoped refinements of al-folio core styles.
-   No publication-template override. BibTeX badges remain native al-folio. */
+/* Site-only al-folio Classic Academic Minimal.
+ * Layout overrides: about (portrait + Title Case) and bib (Paper/Project labels).
+ * Publication venue badges and bibliography engine remain upstream al-folio.
+ */
 :root {
-  --global-theme-color: #285f7f;
-  --global-hover-color: #285f7f;
-  --global-footer-bg-color: #ffffff;
-  --global-footer-text-color: #858b91;
-  --global-footer-link-color: #285f7f;
+ --global-theme-color: #285f7f;
+ --global-hover-color: #285f7f;
+ --global-footer-bg-color: #fff;
+ --global-footer-text-color: #858b91;
+ --global-footer-link-color: #285f7f;
 }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-  color: #45494f;
-  font-size: 15px;
-  line-height: 1.70;
+body {font-family: Arial, Helvetica, sans-serif; color:#45494f; font-size:15px;line-height:1.68;}
+#navbar {border-bottom:1px solid #eceeef;box-shadow:none;}
+#navbar .nav-link {font-size:13px;color:#626971;}
+.academic-hero {
+ display:grid;
+ grid-template-columns:minmax(0,1fr) 155px;
+ column-gap:32px;
+ align-items:start;
 }
-#navbar { border-bottom: 1px solid #eceeef; box-shadow: none; }
-#navbar .nav-link { font-size: 13px; color: #626971; }
-.post-header .post-title {
-  color: #282d33;
-  font-size: 2.32rem;
-  font-weight: 450;
-  letter-spacing: -0.025em;
-  line-height: 1.2;
+.academic-hero-text {min-width:0;}
+.academic-hero .post-header {margin-bottom:1rem;}
+.academic-hero .post-title {
+ color:#282d33;font-size:2.32rem;font-weight:450;letter-spacing:-.025em;line-height:1.18;
 }
-.post-header .post-title .font-weight-bold { font-weight: 450 !important; }
-.post-header .desc { color: #68717a; font-size: 0.9rem; line-height: 1.55; }
-.post article .clearfix { color: #45494f; line-height: 1.72; }
-.academic-topic { color: #30373f; font-weight: 600; margin: 1rem 0 0.5rem; }
-.academic-summary { margin: 0 0 0.6rem; }
-.academic-profile-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.95rem;
-  margin: 0.9rem 0 0;
-  font-size: 0.87rem;
+.academic-hero .post-title .font-weight-bold {font-weight:450!important;}
+.academic-hero .desc {color:#68717a;font-size:.9rem;line-height:1.55;}
+.academic-hero-body {color:#45494f;line-height:1.68;}
+.academic-topic {color:#30373f;font-weight:600;margin:1rem 0 .5rem;}
+.academic-summary {margin:0 0 .6rem;}
+.academic-profile-links {display:flex;flex-wrap:wrap;gap:.95rem;margin:.9rem 0 0;font-size:.87rem;}
+.academic-profile-links span {color:#8a929a;}
+.academic-profile-links a {color:#285f7f;}
+.academic-hero .academic-portrait {
+ width:100%; max-width:155px; float:none!important;
+ margin:0!important;position:static;
 }
-.academic-profile-links span { color: #8a929a; }
-.academic-profile-links a { color: #285f7f; }
-.post article h2, .post > h2 {
-  color: #282d33;
-  font-size: 1.43rem;
-  font-weight: 480;
-  line-height: 1.35;
-  margin-top: 2.6rem;
-  margin-bottom: 0.8rem;
-  text-transform: none;
+.academic-hero .academic-portrait img {border-radius:1px!important;box-shadow:none!important;width:100%;height:auto;}
+.post article h2 {
+ color:#282d33;font-size:1.43rem;font-weight:480;line-height:1.35;
+ margin-top:2.5rem;margin-bottom:.75rem;text-transform:none;
 }
-.post .academic-research-heading { clear: both; padding-top: 0.35rem; }
-.post .academic-research-heading + p { max-width: 100%; }
-.academic-areas { font-size: 0.9rem; color: #5d646c; margin-top: 0.6rem; }
-.profile.float-right {
-  width: 24%;
-  max-width: 160px;
-  margin-left: 30px;
-  margin-bottom: 12px;
+.academic-research {margin-top:2.1rem;}
+.academic-research h2 {margin-top:0;}
+.academic-research p {margin:0 0 .65rem;}
+.academic-areas {font-size:.9rem;color:#5d646c;}
+.academic-research + h2 {margin-top:2.65rem;}
+.publications .bibliography li {margin-bottom:1.25rem;}
+.publications .title {color:#30363d;font-weight:570;font-size:.97rem;}
+.publications .author,.publications .periodical {font-size:.88rem;}
+.publications .abbr .badge {font-weight:600;}
+/* Only the link treatment changes. Keep the native badge and resource logic. */
+.publications .links a.btn,
+.publications .links a.btn.btn-sm {
+ display:inline-block!important;
+ border:none!important;
+ border-radius:0!important;
+ outline:none;
+ box-shadow:none!important;
+ background:transparent!important;
+ color:#285f7f!important;
+ padding:1px 0!important;
+ margin:0 16px 0 0!important;
+ font-size:.84rem!important;
+ font-weight:500!important;
+ line-height:1.5!important;
+ text-decoration:none!important;
 }
-.profile figure { margin-bottom: 0; }
-.profile img { border-radius: 1px !important; box-shadow: none !important; }
-.post > h2 { margin-top: 2.4rem; }
-.publications .bibliography li { margin-bottom: 1.1rem; }
-.publications .title { color: #30363d; font-weight: 570; font-size: 0.97rem; }
-.publications .author, .publications .periodical { font-size: 0.88rem; }
-.publications .abbr .badge { font-weight: 600; }
-footer { border-top: 1px solid #eceeef; font-size: 0.78rem; padding: 1.2rem 0; }
-@media (max-width: 575px) {
-  .post-header .post-title { font-size: 1.97rem; }
-  .post-header .desc { font-size: 0.82rem; }
-  .post article h2, .post > h2 { font-size: 1.31rem; margin-top: 2rem; }
-  .profile.float-right {
-    width: 29%;
-    max-width: 104px;
-    margin-left: 15px;
-    margin-bottom: 9px;
-  }
-  .post { overflow-wrap: anywhere; }
-  .academic-profile-links { gap: 0.7rem; font-size: 0.78rem; }
-  .academic-areas { font-size: 0.83rem; }
+.publications .links a.btn:hover,
+.publications .links a.btn:focus-visible {text-decoration:underline!important;}
+.publications .links a.btn:focus-visible {outline:2px solid #285f7f;outline-offset:3px;}
+footer {border-top:1px solid #eceeef;font-size:.78rem;padding:1.2rem 0;}
+@media(max-width:575px){
+ .academic-hero {grid-template-columns:minmax(0,1fr) 101px;column-gap:14px;}
+ .academic-hero .academic-portrait {max-width:101px;}
+ .academic-hero .post-title {font-size:1.92rem;}
+ .academic-hero .desc {font-size:.82rem;}
+ .academic-topic {margin-top:.7rem;}
+ .academic-profile-links {gap:.65rem;font-size:.78rem;}
+ .post article h2 {font-size:1.31rem;margin-top:2rem;}
+ .academic-research {margin-top:1.8rem;}
+ .academic-research + h2 {margin-top:2.15rem;}
+ .academic-areas {font-size:.83rem;}
+ .post {overflow-wrap:anywhere;}
+ .publications .links a.btn {margin-right:12px!important;}
 }
