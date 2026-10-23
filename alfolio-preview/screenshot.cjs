@@ -30,6 +30,14 @@ require("fs").mkdirSync("alfolio-preview/screenshots",{recursive:true});
    const sw=await page.evaluate(()=>document.documentElement.scrollWidth);
    if (sw>width+2) throw new Error("Horizontal overflow: "+name+" "+sw);
    await page.screenshot({path:"alfolio-preview/screenshots/"+name+".png",fullPage:true});
+   const publicationResponse=await page.goto("http://127.0.0.1:4000/publications/",{waitUntil:"networkidle"});
+   if(!publicationResponse?.ok())throw new Error("Publications page failed "+name);
+   const publicationResources=(await page.locator(".publications .links a").allTextContents()).map(s=>s.trim());
+   for(const label of ["Paper","Code","Project"]){ if(!publicationResources.includes(label))throw new Error("Missing "+label+" on Publications page "+name); }
+   if(publicationResources.some(s=>["Website","Bib","PDF"].includes(s))) throw new Error("Unexpected publication resource labels "+JSON.stringify(publicationResources));
+   const pubBorder=await page.locator(".publications .links a").first().evaluate(el=>getComputedStyle(el).borderTopWidth);
+   if(pubBorder!=="0px")throw new Error("Publications page link border remains "+name+" "+pubBorder);
+   await page.screenshot({path:"alfolio-preview/screenshots/publications-"+name+".png",fullPage:true});
    await page.close();
  }
  await browser.close();
