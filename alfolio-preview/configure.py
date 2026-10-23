@@ -53,7 +53,9 @@ for d in ["_news","_posts","_projects","_books","_teachings","_talks","assets/ju
   year = {2026},
   abbr = {ICRA},
   selected = {true},
-  bibtex_show = {true}
+  pdf = {https://example.com/demo-icra-paper.pdf},
+  code = {https://example.com/demo-icra-code},
+  website = {https://example.com/demo-icra-project}
 }
 @inproceedings{demo2025replace,
   title = {DEMO ONLY: Example Robotic Mapping Paper — Replace Me},
@@ -62,7 +64,9 @@ for d in ["_news","_posts","_projects","_books","_teachings","_talks","assets/ju
   year = {2025},
   abbr = {CVPR},
   selected = {true},
-  bibtex_show = {true}
+  pdf = {https://example.com/demo-cvpr-paper.pdf},
+  code = {https://example.com/demo-cvpr-code},
+  website = {https://example.com/demo-cvpr-project}
 }
 """)
 
