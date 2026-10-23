@@ -26,10 +26,16 @@ about=(Path(__file__).resolve().parent/"overrides"/"about.md").read_text()
 style=(Path(__file__).resolve().parent/"overrides"/"academic.css").read_text()
 about=about.replace("{% include academic.css %}",style)
 (root/"_pages"/"about.md").write_text(about)
+# Site-level layout overrides; al_folio_core and Jekyll-Scholar remain installed.
+layouts=root/"_layouts"
+layouts.mkdir(exist_ok=True)
+for name in ("about","bib"):
+  layout=(Path(__file__).resolve().parent/"overrides"/f"layout-{name}.liquid")
+  (layouts/f"{name}.liquid").write_text(layout.read_text())
 (root/"_pages"/"publications.md").write_text("""---
 layout: page
 permalink: /publications/
-title: publications
+title: Publications
 nav: true
 nav_order: 1
 ---
