@@ -66,6 +66,17 @@ async function screenshotAndCheck(page,url,file,width,name){
    check(await page.locator('.academic-project-list .academic-project-row img[src*="/project_preview/"]').count()===3,name+" missing project previews");
    const imgStatuses=await page.locator('.academic-project-list img').evaluateAll(imgs=>imgs.map(x=>({src:x.getAttribute("src"),ok:x.complete&&x.naturalWidth>0})));
    check(imgStatuses.every(x=>x.ok),name+" broken project preview "+JSON.stringify(imgStatuses));
+   // Generated preview art must not contain the previous opaque white caption panel or embedded labels.
+   const svgChecks=await page.evaluate(async()=>{
+     const assets=[...["lesta","terrablox","mapgloc","multi-agent","ods-bot"].map(n=>"/assets/img/publication_preview/"+n+".svg"),
+       ...["fastdem","multi-robot","ods-bot"].map(n=>"/assets/img/project_preview/"+n+".svg")];
+     return Promise.all(assets.map(async url=>{
+       const resp=await fetch(url);
+       const body=await resp.text();
+       return {url,status:resp.status,hasPanel:body.includes('fill="#ffffff"')||body.includes('ILLUSTRATIVE PLACEHOLDER')||body.includes('<text')};
+     }));
+   });
+   check(svgChecks.every(x=>x.status===200&&!x.hasPanel),name+" white thumbnail label panel still present: "+JSON.stringify(svgChecks));
    const projectText=await page.locator(".academic-project-list").innerText();
    check(projectText.includes("Hyundai Motor Company")&&projectText.includes("Hyundai Mobis"),name+" project metadata missing");
    console.log(name,JSON.stringify({selected:five,journalCount,draftCount,projects:3,homeThumbnailWidth:heroThumb.width,fullThumbnailWidth:compactThumb.width}));
