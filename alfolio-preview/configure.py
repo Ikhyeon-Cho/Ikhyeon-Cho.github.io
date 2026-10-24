@@ -6,7 +6,7 @@ root=Path(__file__).resolve().parent.parent/"alfolio-src"
 cfg=root/"_config.yml"
 s=cfg.read_text()
 edits={
-  "first_name": "Your", "middle_name": '""', "last_name": "Name",
+  "first_name": "Ikhyeon", "middle_name": '""', "last_name": "Cho",
   "url": '""', "baseurl": '""', "search_enabled": "false",
   "enable_darkmode": "false", "last_updated": "false",
   "footer_fixed": "false", "max_width": "860px", "navbar_fixed": "false"
@@ -18,6 +18,9 @@ for key,val in edits.items():
 # No dark fixed footer and no unlicensed stock-photo attribution in a minimal academic site.
 s=re.sub(r'(?m)^footer_text: >[^\n]*\n(?:^  .*\n)+', 'footer_text: ""\n', s, count=1)
 s=s.replace("imagemagick:\n  enabled: true", "imagemagick:\n  enabled: false")
+# Match author highlighting to the profile name without changing bibliography engine.
+s=s.replace("last_name: [Einstein]", "last_name: [Cho]")
+s=s.replace("first_name: [Albert, A.]", "first_name: [Ikhyeon, I.]")
 cfg.write_text(s)
 
 # Keep the upstream Jekyll layout, Scholar plugin, theme and Gemfile unchanged.
@@ -32,54 +35,110 @@ layouts.mkdir(exist_ok=True)
 for name in ("about","bib"):
   layout=(Path(__file__).resolve().parent/"overrides"/f"layout-{name}.liquid")
   (layouts/f"{name}.liquid").write_text(layout.read_text())
-(root/"_pages"/"publications.md").write_text("""---
-layout: page
-permalink: /publications/
-title: Publications
-nav: true
-nav_order: 1
----
-<div class="publications">
-{% bibliography %}
-</div>
-""")
-# Ensure shared academic link style applies on Publications page as well as Home.
-pub=root/"_pages"/"publications.md"
-ps=pub.read_text()
-ps=ps.replace('<div class="publications">', '<style>'+style+'</style>\n<div class="publications">', 1)
-pub.write_text(ps)
+# Single-source page files: no hidden copies of the page body in this script.
+for name in ("publications","projects"):
+  page=(Path(__file__).resolve().parent/"overrides"/f"{name}.md").read_text()
+  page=page.replace("{% include academic.css %}",style)
+  (root/"_pages"/f"{name}.md").write_text(page)
 for p in (root/"_pages").glob("*"):
-  if p.is_file() and p.name not in {"about.md","publications.md","404.md"}: p.unlink()
+  if p.is_file() and p.name not in {"about.md","publications.md","projects.md","404.md"}: p.unlink()
 for d in ["_news","_posts","_projects","_books","_teachings","_talks","assets/jupyter"]:
   p=root/d
   if p.exists(): shutil.rmtree(p)
 
-# Explicitly fake paper entries ONLY to test that the upstream bibliography renders.
+# Explicitly provisional records: names/status from the review brief, not real verified BibTeX.
+# No fabricated author list, venue for under-review work, DOI, or live resource URLs.
 (root/"_bibliography"/"papers.bib").write_text("""---
 ---
-@inproceedings{demo2026replace,
-  title = {DEMO ONLY: Example 3D Perception Paper — Replace Me},
-  author = {Name, Your and Coauthor, Example},
-  booktitle = {Fictional Conference (Not a Publication)},
-  year = {2026},
-  abbr = {ICRA},
+@article{lesta,
+  title = {LeSTA (full publication title pending verification)},
+  author = {Pending, Author List},
+  journal = {IEEE Robotics and Automation Letters (RA-L)},
+  year = {2024},
+  category = {journal},
+  abbr = {RA-L},
   selected = {true},
-  pdf = {https://example.com/demo-icra-paper.pdf},
-  code = {https://example.com/demo-icra-code},
-  website = {https://example.com/demo-icra-project}
+  preview = {lesta.svg},
+  pdf = {https://example.com/PREVIEW-ONLY-lesta-paper},
+  code = {https://example.com/PREVIEW-ONLY-lesta-code},
+  website = {https://example.com/PREVIEW-ONLY-lesta-project}
 }
-@inproceedings{demo2025replace,
-  title = {DEMO ONLY: Example Robotic Mapping Paper — Replace Me},
-  author = {Name, Your and Coauthor, Example},
-  booktitle = {Fictional Conference (Not a Publication)},
-  year = {2025},
-  abbr = {CVPR},
+@unpublished{terrablox,
+  title = {Terrablox (full manuscript title pending verification)},
+  author = {Pending, Author List},
+  year = {2026},
+  category = {manuscript},
+  note = {Manuscript under review — NOT PUBLISHED},
   selected = {true},
-  pdf = {https://example.com/demo-cvpr-paper.pdf},
-  code = {https://example.com/demo-cvpr-code},
-  website = {https://example.com/demo-cvpr-project}
+  preview = {terrablox.svg}
+}
+@unpublished{mapgloc,
+  title = {MapGLoc (full manuscript title pending verification)},
+  author = {Pending, Author List},
+  year = {2026},
+  category = {manuscript},
+  note = {Manuscript under review — NOT PUBLISHED},
+  selected = {true},
+  preview = {mapgloc.svg}
+}
+@article{multiagent,
+  title = {Multi-Agent Path Finding (full publication title pending verification)},
+  author = {Pending, Author List},
+  journal = {Sensors},
+  year = {2026},
+  category = {journal},
+  abbr = {Sensors},
+  selected = {true},
+  preview = {multi-agent.svg},
+  pdf = {https://example.com/PREVIEW-ONLY-multiagent-paper}
+}
+@article{odsbot,
+  title = {ODS-Bot (full publication title pending verification)},
+  author = {Pending, Author List},
+  journal = {IEEE Access},
+  year = {2022},
+  category = {journal},
+  abbr = {IEEE Access},
+  selected = {true},
+  preview = {ods-bot.svg},
+  website = {/projects/#ods-bot}
 }
 """)
+
+# Explicit placeholder vector art for design validation. Replace with genuine PNG/GIF.
+# These are abstract schematics, not real research results or photographs.
+art=root/"assets"/"img"/"publication_preview"
+art.mkdir(parents=True,exist_ok=True)
+project_art=root/"assets"/"img"/"project_preview"
+project_art.mkdir(parents=True,exist_ok=True)
+from html import escape
+def placeholder(label,idx,large=False):
+  palettes=[
+    ("#e7edf1","#6b929e","#9ab5aa"),
+    ("#e7eae6","#918d75","#bdafa0"),
+    ("#e8edf2","#67839f","#8aa6b8"),
+    ("#ecedf1","#777e9e","#afb9c4"),
+    ("#eff0ee","#708b85","#a9b8b0"),
+    ("#e5edef","#5e8992","#90b2b5"),
+    ("#eaedf1","#697c9d","#b1bac5"),
+    ("#e9ede8","#7a8e81","#b5c5b5")
+  ]
+  bg,ink,muted=palettes[idx%len(palettes)]
+  w,h=(480,330) if large else (300,210)
+  circles="".join(f'<circle cx="{(j*67+idx*31)%w}" cy="{(j*47+idx*19)%h}" r="{3+j%5}" fill="{ink}" opacity="0.32"/>' for j in range(36))
+  lines="".join(f'<path d="M {10+j*21} {h-29} Q {w/2} {(j*17)%h} {w-9} {15+j*14}" stroke="{muted}" stroke-width="1.3" opacity="0.55" fill="none"/>' for j in range(8))
+  return f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}"><rect width="{w}" height="{h}" fill="{bg}"/>{lines}{circles}<rect x="10" y="{h-62}" width="{w-20}" height="52" rx="2" fill="#ffffff" opacity=".88"/><text x="19" y="{h-40}" font-family="Arial, sans-serif" font-size="17" fill="#3a4850" font-weight="600">{escape(label)}</text><text x="19" y="{h-21}" font-family="Arial, sans-serif" font-size="10" fill="#637078" letter-spacing="1.0">ILLUSTRATIVE PLACEHOLDER</text></svg>'
+for idx,(filename,label) in enumerate([
+  ("lesta.svg","LeSTA"),("terrablox.svg","Terrablox"),
+  ("mapgloc.svg","MapGLoc"),("multi-agent.svg","Multi-Agent Planning"),
+  ("ods-bot.svg","ODS-Bot")
+]):
+  (art/filename).write_text(placeholder(label,idx))
+for idx,(filename,label) in enumerate([
+  ("fastdem.svg","FastDEM"),("multi-robot.svg","Multi-Robot Navigation"),
+  ("ods-bot.svg","ODS-Bot")
+],5):
+  (project_art/filename).write_text(placeholder(label,idx,large=True))
 
 # Generate a simple neutral placeholder PNG without additional dependencies.
 w,h=280,340
