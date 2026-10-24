@@ -4,7 +4,7 @@ layout: default
 <!-- Local site-only override of al_folio_core about layout:
      one grid aligns the portrait with the name; keeps upstream content, selected_papers,
      news/posts/social conditions, and bibliography include. -->
-<div class="post academic-site">
+<div class="post academic-site academic-home">
   <div class="academic-hero">
     <div class="academic-hero-text">
       <header class="post-header">
@@ -75,6 +75,20 @@ layout: default
         <a href="{{ '/publications/' | relative_url }}" style="color: inherit">Selected Publications</a>
       </h2>
       {% include selected_papers.liquid %}
+    {% endif %}
+
+    {% if page.selected_papers %}
+      <section class="academic-feature-project" aria-labelledby="research-software">
+        <h2 id="research-software">Research Software &amp; Systems</h2>
+        <a class="academic-feature-project-row" href="{{ '/projects/#fastdem' | relative_url }}">
+          <img src="{{ '/assets/img/project_preview/fastdem.svg' | relative_url }}" alt="Illustrative placeholder thumbnail for FastDEM" loading="lazy">
+          <div>
+            <strong>FastDEM</strong>
+            <p>High-performance elevation mapping · industry collaboration / PoC (description provisional)</p>
+            <span>View Projects →</span>
+          </div>
+        </a>
+      </section>
     {% endif %}
 
     <!-- Social -->
