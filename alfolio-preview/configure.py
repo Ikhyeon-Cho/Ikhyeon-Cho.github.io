@@ -111,8 +111,7 @@ art=root/"assets"/"img"/"publication_preview"
 art.mkdir(parents=True,exist_ok=True)
 project_art=root/"assets"/"img"/"project_preview"
 project_art.mkdir(parents=True,exist_ok=True)
-from html import escape
-def placeholder(label,idx,large=False):
+def placeholder(_label,idx,large=False):
   palettes=[
     ("#e7edf1","#6b929e","#9ab5aa"),
     ("#e7eae6","#918d75","#bdafa0"),
@@ -127,7 +126,8 @@ def placeholder(label,idx,large=False):
   w,h=(480,330) if large else (300,210)
   circles="".join(f'<circle cx="{(j*67+idx*31)%w}" cy="{(j*47+idx*19)%h}" r="{3+j%5}" fill="{ink}" opacity="0.32"/>' for j in range(36))
   lines="".join(f'<path d="M {10+j*21} {h-29} Q {w/2} {(j*17)%h} {w-9} {15+j*14}" stroke="{muted}" stroke-width="1.3" opacity="0.55" fill="none"/>' for j in range(8))
-  return f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}"><rect width="{w}" height="{h}" fill="{bg}"/>{lines}{circles}<rect x="10" y="{h-62}" width="{w-20}" height="52" rx="2" fill="#ffffff" opacity=".88"/><text x="19" y="{h-40}" font-family="Arial, sans-serif" font-size="17" fill="#3a4850" font-weight="600">{escape(label)}</text><text x="19" y="{h-21}" font-family="Arial, sans-serif" font-size="10" fill="#637078" letter-spacing="1.0">ILLUSTRATIVE PLACEHOLDER</text></svg>'
+  # No white label panel or embedded text: paper/project titles live in the adjacent HTML.
+  return f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}"><rect width="{w}" height="{h}" fill="{bg}"/>{lines}{circles}</svg>'
 for idx,(filename,label) in enumerate([
   ("lesta.svg","LeSTA"),("terrablox.svg","Terrablox"),
   ("mapgloc.svg","MapGLoc"),("multi-agent.svg","Multi-Agent Planning"),
