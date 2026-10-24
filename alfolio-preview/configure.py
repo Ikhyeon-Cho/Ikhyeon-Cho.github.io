@@ -26,7 +26,7 @@ cfg.write_text(s)
 # Keep all genuine conference/journal badge styles unchanged until real PNG/GIF are available.
 venues=root/"_data"/"venues.yml"
 with venues.open("a") as f:
-  f.write('\\n"Under Review":\\n  color: "#687581"\\n'.replace('\\\\n','\\n'))
+  f.write(chr(10) + '"Under Review":' + chr(10) + '  color: "#687581"' + chr(10))
 
 # Keep the upstream Jekyll layout, Scholar plugin, theme and Gemfile unchanged.
 # Apply small, tracked text/style overrides. Keep upstream about layout and bibliography rendering.
