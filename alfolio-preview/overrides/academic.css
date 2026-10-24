@@ -198,3 +198,24 @@ footer {border-top:1px solid #eceeef;font-size:.78rem;padding:1.2rem 0;}
     letter-spacing: 0;
   }
 }
+
+
+/* Fix compact mobile publication columns: avoid clipping status ribbons.
+   Still substantially smaller than the 205px Home thumbnails. */
+@media (max-width: 575px) {
+  .academic-publications .publications li > .row > .abbr {
+    flex: 0 0 112px;
+    max-width: 112px;
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+  .academic-publications .publications li > .row > [id] {
+    flex: 1 1 0;
+    max-width: calc(100% - 112px);
+  }
+  .academic-publications .abbr abbr.manuscript-status {
+    font-size: 12px !important;
+    min-height: 27px;
+    padding: 4px 3px !important;
+  }
+}
