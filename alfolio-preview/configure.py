@@ -22,6 +22,11 @@ s=s.replace("imagemagick:\n  enabled: true", "imagemagick:\n  enabled: false")
 s=s.replace("last_name: [Einstein]", "last_name: [Cho]")
 s=s.replace("first_name: [Albert, A.]", "first_name: [Ikhyeon, I.]")
 cfg.write_text(s)
+# Explicit status badge (not a venue): slate-gray distinguishes unpublished manuscripts.
+# Keep all genuine conference/journal badge styles unchanged until real PNG/GIF are available.
+venues=root/"_data"/"venues.yml"
+with venues.open("a") as f:
+  f.write('\\n"Under Review":\\n  color: "#687581"\\n'.replace('\\\\n','\\n'))
 
 # Keep the upstream Jekyll layout, Scholar plugin, theme and Gemfile unchanged.
 # Apply small, tracked text/style overrides. Keep upstream about layout and bibliography rendering.
@@ -68,6 +73,7 @@ for d in ["_news","_posts","_projects","_books","_teachings","_talks","assets/ju
   author = {Pending, Author List},
   year = {2026},
   category = {manuscript},
+  abbr = {Under Review},
   note = {Manuscript under review — NOT PUBLISHED},
   selected = {true},
   preview = {terrablox.svg}
@@ -77,6 +83,7 @@ for d in ["_news","_posts","_projects","_books","_teachings","_talks","assets/ju
   author = {Pending, Author List},
   year = {2026},
   category = {manuscript},
+  abbr = {Under Review},
   note = {Manuscript under review — NOT PUBLISHED},
   selected = {true},
   preview = {mapgloc.svg}
