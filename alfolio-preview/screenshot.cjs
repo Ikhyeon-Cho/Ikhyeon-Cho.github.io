@@ -37,10 +37,24 @@ async function screenshotAndCheck(page,url,file,width,name){
    for(const paper of ["LeSTA","Terrablox","MapGLoc","Multi-Agent Path Finding","ODS-Bot"])
      check(fullHomeText.includes(paper),name+" missing "+paper);
    check(fullHomeText.includes("NOT PUBLISHED"),name+" under review disclaimer missing");
-   const reviewBadges=page.locator(".academic-home .publications .abbr abbr.badge").filter({hasText:"Under Review"});
+   const reviewBadges=page.locator(".academic-home .publications .abbr abbr.manuscript-status").filter({hasText:"Under Review"});
    check(await reviewBadges.count()===2,name+" expected exactly 2 Under Review status badges on Home");
-   const color=await reviewBadges.first().evaluate(el=>getComputedStyle(el).backgroundColor);
-   check(color==="rgb(104, 117, 129)",name+" expected neutral gray badge; got "+color);
+   const badgeStyles=await reviewBadges.evaluateAll(nodes=>nodes.map(el=>{
+     const st=getComputedStyle(el);
+     const child=el.querySelector("div,a");
+     const childColor=child?getComputedStyle(child).color:null;
+     const span=document.createElement("span");
+     span.textContent=el.textContent.trim();
+     span.style.font=st.font;
+     span.style.whiteSpace="nowrap";
+     document.body.append(span);
+     const textWidth=span.getBoundingClientRect().width;
+     span.remove();
+     return {bg:st.backgroundColor,fg:st.color,childColor,font:parseFloat(st.fontSize),
+       height:el.getBoundingClientRect().height,width:el.getBoundingClientRect().width,textWidth};
+   }));
+   check(badgeStyles.every(v=>v.bg==="rgb(88, 101, 117)"&&v.fg==="rgb(255, 255, 255)"&&v.childColor==="rgb(255, 255, 255)"&&v.font>=12&&v.height>=26&&v.textWidth<v.width-8),
+     name+" Under Review ribbon not legible or clipped "+JSON.stringify(badgeStyles));
 
    const resources=(await page.locator(".academic-home .publications .links a").allInnerTexts()).map(x=>x.trim());
    for(const label of ["Paper","Code","Project"])check(resources.includes(label),name+" missing resource "+label);
@@ -54,8 +68,15 @@ async function screenshotAndCheck(page,url,file,width,name){
    const journalCount=await page.locator("#journal-articles ol.bibliography li").count();
    const draftCount=await page.locator("#manuscripts ol.bibliography li").count();
    check(journalCount===3&&draftCount===2,name+" wrong groups "+journalCount+"/"+draftCount);
-   const manuscriptBadges=page.locator("#manuscripts .abbr abbr.badge").filter({hasText:"Under Review"});
+   const manuscriptBadges=page.locator("#manuscripts .abbr abbr.manuscript-status").filter({hasText:"Under Review"});
    check(await manuscriptBadges.count()===2,name+" expected 2 review badges on Publications");
+   const manuscriptLegible=await manuscriptBadges.evaluateAll(nodes=>nodes.map(el=>{
+     const st=getComputedStyle(el);
+     const rect=el.getBoundingClientRect();
+     return {font:parseFloat(st.fontSize),height:rect.height,color:st.color,scroll:el.scrollWidth,client:el.clientWidth};
+   }));
+   check(manuscriptLegible.every(v=>v.font>=10&&v.height>=24&&v.color==="rgb(255, 255, 255)"&&v.scroll<=v.client+1),
+     name+" Publications review labels clipped "+JSON.stringify(manuscriptLegible));
    const journalBadges=await page.locator("#journal-articles .abbr abbr.badge").allTextContents();
    check(journalBadges.every(x=>!x.includes("Under Review")),name+" status must not appear on published articles");
 
