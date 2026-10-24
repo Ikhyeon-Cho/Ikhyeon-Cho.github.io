@@ -37,6 +37,11 @@ async function screenshotAndCheck(page,url,file,width,name){
    for(const paper of ["LeSTA","Terrablox","MapGLoc","Multi-Agent Path Finding","ODS-Bot"])
      check(fullHomeText.includes(paper),name+" missing "+paper);
    check(fullHomeText.includes("NOT PUBLISHED"),name+" under review disclaimer missing");
+   const reviewBadges=page.locator(".academic-home .publications .abbr abbr.badge").filter({hasText:"Under Review"});
+   check(await reviewBadges.count()===2,name+" expected exactly 2 Under Review status badges on Home");
+   const color=await reviewBadges.first().evaluate(el=>getComputedStyle(el).backgroundColor);
+   check(color==="rgb(104, 117, 129)",name+" expected neutral gray badge; got "+color);
+
    const resources=(await page.locator(".academic-home .publications .links a").allInnerTexts()).map(x=>x.trim());
    for(const label of ["Paper","Code","Project"])check(resources.includes(label),name+" missing resource "+label);
    check(!resources.some(x=>["Bib","Website","PDF"].includes(x)),name+" stale resource labels");
@@ -49,6 +54,11 @@ async function screenshotAndCheck(page,url,file,width,name){
    const journalCount=await page.locator("#journal-articles ol.bibliography li").count();
    const draftCount=await page.locator("#manuscripts ol.bibliography li").count();
    check(journalCount===3&&draftCount===2,name+" wrong groups "+journalCount+"/"+draftCount);
+   const manuscriptBadges=page.locator("#manuscripts .abbr abbr.badge").filter({hasText:"Under Review"});
+   check(await manuscriptBadges.count()===2,name+" expected 2 review badges on Publications");
+   const journalBadges=await page.locator("#journal-articles .abbr abbr.badge").allTextContents();
+   check(journalBadges.every(x=>!x.includes("Under Review")),name+" status must not appear on published articles");
+
    check((await page.locator("#manuscripts").innerText()).includes("not published or accepted"),name+" under review status not explicit");
    check((await page.locator("#international-conference").innerText()).includes("require verification"),name+" UR placeholder omitted");
    check((await page.locator("#domestic-conference").innerText()).includes("pending verification"),name+" KRoC placeholder omitted");
